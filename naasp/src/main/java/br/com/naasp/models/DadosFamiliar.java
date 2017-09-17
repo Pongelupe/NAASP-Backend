@@ -2,19 +2,10 @@ package br.com.naasp.models;
 
 public class DadosFamiliar {
 
-	private String nome;
 	private String parentesco;
 	private String profissao;
 	private String escolaridade;
 	private int idade;
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public String getParentesco() {
 		return parentesco;
@@ -48,8 +39,7 @@ public class DadosFamiliar {
 		this.idade = idade;
 	}
 
-	public DadosFamiliar(String nome, String parentesco, String profissao, String escolaridade, int idade) {
-		this.nome = nome;
+	public DadosFamiliar(String parentesco, String profissao, String escolaridade, int idade) {
 		this.parentesco = parentesco;
 		this.profissao = profissao;
 		this.escolaridade = escolaridade;
@@ -58,8 +48,8 @@ public class DadosFamiliar {
 
 	@Override
 	public String toString() {
-		return "DadosFamiliar [nome=" + nome + ", parentesco=" + parentesco + ", profissao=" + profissao
-				+ ", escolaridade=" + escolaridade + ", idade=" + idade + "]";
+		return "DadosFamiliar [parentesco=" + parentesco + ", profissao=" + profissao + ", escolaridade=" + escolaridade
+				+ ", idade=" + idade + "]";
 	}
 
 }
