@@ -123,52 +123,64 @@ public class Paciente extends Usuario {
 		private DadosSaude dadosSaude;
 		private DadosParoquias dadosParoquias;
 
-		public void addNome(String nome) {
+		public PacienteBuilder addNome(String nome) {
 			this.nome = nome;
+			return this;
 		}
 
-		public void addSenha(String senha) {
+		public PacienteBuilder addSenha(String senha) {
 			this.senha = senha;
+			return this;
 		}
 
-		public void addNumFicha(int numFicha) {
+		public PacienteBuilder addNumFicha(int numFicha) {
 			this.numFicha = numFicha;
+			return this;
 		}
 
-		public void addDataPrimeiroAtend(String dataPrimAtendimento) {
+		public PacienteBuilder addDataPrimeiroAtend(String dataPrimAtendimento) {
 			this.dataPrimeiroAtend = dataPrimAtendimento;
+			return this;
 		}
 
-		public void addParoco(String paroco) {
+		public PacienteBuilder addParoco(String paroco) {
 			this.paroco = paroco;
+			return this;
 		}
 
-		public void addSacerdote(String sacerdote) {
+		public PacienteBuilder addSacerdote(String sacerdote) {
 			this.sacerdote = sacerdote;
+			return this;
 		}
 
-		public void addRespAtendimento(String respAtendimento) {
+		public PacienteBuilder addRespAtendimento(String respAtendimento) {
 			this.respAtendimento = respAtendimento;
+			return this;
 		}
 
-		public void addDadosPessoais(DadosPessoal dadosPessoais) {
+		public PacienteBuilder addDadosPessoais(DadosPessoal dadosPessoais) {
 			this.dadosPessoais = dadosPessoais;
+			return this;
 		}
 
-		public void addDadosFamiliar(DadosFamiliar dadosFamiliar) {
+		public PacienteBuilder addDadosFamiliar(DadosFamiliar dadosFamiliar) {
 			this.dadosFamiliares.add(dadosFamiliar);
+			return this;
 		}
 
-		public void addDadosMorada(DadosMorada dadosMorada) {
+		public PacienteBuilder addDadosMorada(DadosMorada dadosMorada) {
 			this.dadosMorada = dadosMorada;
+			return this;
 		}
 
-		public void addDadosSaude(DadosSaude dadosSaude) {
+		public PacienteBuilder addDadosSaude(DadosSaude dadosSaude) {
 			this.dadosSaude = dadosSaude;
+			return this;
 		}
 
-		public void addDadosParoquias(DadosParoquias dadosParoquias) {
+		public PacienteBuilder addDadosParoquias(DadosParoquias dadosParoquias) {
 			this.dadosParoquias = dadosParoquias;
+			return this;
 		}
 
 		public Paciente build() {
