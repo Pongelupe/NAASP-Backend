@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DadosPessoal {
+	private String nome;
 	private String dataNascimento;
 	private char sexo;
 	private String estadoCivil;
@@ -14,6 +15,14 @@ public class DadosPessoal {
 	private String endereco;
 	private String pontoRef;
 	private List<String> telefones;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public String getDataNascimento() {
 		return dataNascimento;

@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public abstract class Usuario {
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +46,4 @@ public abstract class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + "]";
 	}
-
 }

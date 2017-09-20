@@ -13,9 +13,9 @@ import br.com.naasp.models.Paciente;
 public class PacienteDAO {
 
 	@PersistenceContext
-	private EntityManager manager;
+	private static EntityManager manager;
 
-	public void gravar(Paciente paciente) {
+	public static void gravar(Paciente paciente) {
 		manager.persist(paciente);
 	}
 

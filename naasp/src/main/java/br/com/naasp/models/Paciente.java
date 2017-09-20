@@ -4,9 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.json.JSONObject;
+
+import br.com.naasp.daos.PacienteDAO;
 
 @Entity
-public class Paciente extends Usuario {
+public class Paciente {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
 	private int numFicha;
 	private String dataPrimeiroAtend;
@@ -24,6 +35,10 @@ public class Paciente extends Usuario {
 	private DadosSaude dadosSaude;
 	// Dados Paróquia
 	private DadosParoquias dadosParoquia;
+
+	public int getId() {
+		return id;
+	}
 
 	public int getNumFicha() {
 		return numFicha;
@@ -85,6 +100,10 @@ public class Paciente extends Usuario {
 		return dadosParoquia;
 	}
 
+	public void add() {
+		PacienteDAO.gravar(this);
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + " Paciente [numFicha=" + numFicha + ", dataPrimeiroAtend=" + dataPrimeiroAtend
@@ -93,10 +112,9 @@ public class Paciente extends Usuario {
 				+ dadosMorada + ", dadosSaude=" + dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
 	}
 
-	private Paciente(String nome, String senha, int numFicha, String dataPrimAtend, String paroco, String sacerdote,
-			String respAtendimento, DadosPessoal dadosPessoais, List<DadosFamiliar> dadosFamiliares,
-			DadosMorada dadosMorada, DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
-		super(nome, senha);
+	private Paciente(int numFicha, String dataPrimAtend, String paroco, String sacerdote, String respAtendimento,
+			DadosPessoal dadosPessoais, List<DadosFamiliar> dadosFamiliares, DadosMorada dadosMorada,
+			DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
 		this.numFicha = numFicha;
 		this.dataPrimeiroAtend = dataPrimAtend;
 		this.paroco = paroco;
@@ -109,9 +127,16 @@ public class Paciente extends Usuario {
 		this.dadosParoquia = dadosParoquia;
 	}
 
+	public Paciente(JSONObject json) {
+		//TODO
+	}
+
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		return json;
+	}
+
 	public class PacienteBuilder {
-		private String nome;
-		private String senha;
 		private int numFicha;
 		private String dataPrimeiroAtend;
 		private String paroco;
@@ -122,16 +147,6 @@ public class Paciente extends Usuario {
 		private DadosMorada dadosMorada;
 		private DadosSaude dadosSaude;
 		private DadosParoquias dadosParoquias;
-
-		public PacienteBuilder addNome(String nome) {
-			this.nome = nome;
-			return this;
-		}
-
-		public PacienteBuilder addSenha(String senha) {
-			this.senha = senha;
-			return this;
-		}
 
 		public PacienteBuilder addNumFicha(int numFicha) {
 			this.numFicha = numFicha;
@@ -184,9 +199,10 @@ public class Paciente extends Usuario {
 		}
 
 		public Paciente build() {
-			return new Paciente(nome, senha, numFicha, dataPrimeiroAtend, paroco, sacerdote, respAtendimento,
-					dadosPessoais, dadosFamiliares, dadosMorada, dadosSaude, dadosParoquias);
+			return new Paciente(numFicha, dataPrimeiroAtend, paroco, sacerdote, respAtendimento, dadosPessoais,
+					dadosFamiliares, dadosMorada, dadosSaude, dadosParoquias);
 		}
 
 	}
+
 }
