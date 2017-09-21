@@ -1,5 +1,8 @@
 package br.com.naasp.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DadosParoquias {
 
 	private String paroquiaBairro;
@@ -7,6 +10,31 @@ public class DadosParoquias {
 	private String pastoralInserido;
 	private String pastoralAcompanhado;
 	private String atividadeOutrasInst;
+
+	private static class DadosParoquiaKeys {
+		public static final String PAROQUIA_BAIRRO = "paroquiaBairro";
+		public static final String DESCRICAO_ATIVIDADE = "descricaoAtividade";
+		public static final String PASTORAL_INSERIDO = "pastoralInserdo";
+		public static final String PASTORAL_ACOMPANHADO = "pastoralAcompanhado";
+		public static final String ATIVIDADE_OUTRAS_INST = "atividadeOutrasInst";
+	}
+
+	public DadosParoquias(JSONObject json) throws JSONException {
+		if (json.has(DadosParoquiaKeys.PAROQUIA_BAIRRO))
+			paroquiaBairro = json.getString(DadosParoquiaKeys.PAROQUIA_BAIRRO);
+
+		if (json.has(DadosParoquiaKeys.DESCRICAO_ATIVIDADE))
+			paroquiaBairro = json.getString(DadosParoquiaKeys.DESCRICAO_ATIVIDADE);
+
+		if (json.has(DadosParoquiaKeys.PASTORAL_INSERIDO))
+			paroquiaBairro = json.getString(DadosParoquiaKeys.PASTORAL_INSERIDO);
+
+		if (json.has(DadosParoquiaKeys.PASTORAL_ACOMPANHADO))
+			paroquiaBairro = json.getString(DadosParoquiaKeys.PASTORAL_ACOMPANHADO);
+
+		if (json.has(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST))
+			paroquiaBairro = json.getString(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST);
+	}
 
 	public String getParoquiaBairro() {
 		return paroquiaBairro;

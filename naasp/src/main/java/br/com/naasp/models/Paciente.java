@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.naasp.daos.PacienteDAO;
@@ -35,6 +37,19 @@ public class Paciente {
 	private DadosSaude dadosSaude;
 	// Dados Paróquia
 	private DadosParoquias dadosParoquia;
+
+	private static class PacienteKeys {
+		private static final String NUM_FICHA = "numFicha";
+		private static final String DATA_PRIM_ATENDIMENTO = "dataPrimAtend";
+		private static final String PAROCO = "paroco";
+		private static final String SACERDOTE = "sacerdode";
+		private static final String RESP_ATENDIMENTO = "respAtendimento";
+		private static final String DADOS_PESSOAIS = "dadosPessoais";
+		private static final String DADOS_FAMILIARES = "dadosFamiliares";
+		private static final String DADOS_MORADA = "dadosMorada";
+		private static final String DADOS_SAUDE = "dadosSaude";
+		private static final String DADOS_PAROQUIA = "dadosSaude";
+	}
 
 	public int getId() {
 		return id;
@@ -100,6 +115,29 @@ public class Paciente {
 		return dadosParoquia;
 	}
 
+	private void setDadosPessoais(JSONObject jsonObject) throws JSONException {
+		this.dadosPessoais = new DadosPessoal(jsonObject);
+	}
+
+	private void setDadosMorada(JSONObject jsonObject) throws JSONException {
+		this.dadosMorada = new DadosMorada(jsonObject);
+	}
+
+	private void setDadosFamiliares(JSONArray jsonArray) throws JSONException {
+		this.dadosFamiliares = new ArrayList<DadosFamiliar>();
+
+		for (int i = 0; i < jsonArray.length(); i++)
+			dadosFamiliares.add(new DadosFamiliar(jsonArray.getJSONObject(i)));
+	}
+
+	private void setDadosSaude(JSONObject jsonObject) throws JSONException {
+		this.dadosSaude = new DadosSaude(jsonObject);
+	}
+
+	private void setDadosParoquia(JSONObject jsonObject) throws JSONException {
+		this.dadosParoquia = new DadosParoquias(jsonObject);
+	}
+
 	public void add() {
 		PacienteDAO.gravar(this);
 	}
@@ -127,10 +165,39 @@ public class Paciente {
 		this.dadosParoquia = dadosParoquia;
 	}
 
-	public Paciente(JSONObject json) {
-		//TODO
+	public Paciente(JSONObject json) throws JSONException {
+		if (json.has(PacienteKeys.NUM_FICHA))
+			setNumFicha(json.getInt(PacienteKeys.NUM_FICHA));
+
+		if (json.has(PacienteKeys.DATA_PRIM_ATENDIMENTO))
+			setDataPrimeiroAtend(json.getString(PacienteKeys.DATA_PRIM_ATENDIMENTO));
+
+		if (json.has(PacienteKeys.PAROCO))
+			setParoco(json.getString(PacienteKeys.PAROCO));
+
+		if (json.has(PacienteKeys.SACERDOTE))
+			setSacerdode(json.getString(PacienteKeys.SACERDOTE));
+
+		if (json.has(PacienteKeys.RESP_ATENDIMENTO))
+			setRespAtendimento(json.getString(PacienteKeys.RESP_ATENDIMENTO));
+
+		if (json.has(PacienteKeys.DADOS_PESSOAIS))
+			setDadosPessoais(json.getJSONObject(PacienteKeys.DADOS_PESSOAIS));
+
+		if (json.has(PacienteKeys.DADOS_FAMILIARES))
+			setDadosFamiliares(json.getJSONArray(PacienteKeys.DADOS_FAMILIARES));
+
+		if (json.has(PacienteKeys.DADOS_MORADA))
+			setDadosMorada(json.getJSONObject(PacienteKeys.DADOS_MORADA));
+
+		if (json.has(PacienteKeys.DADOS_SAUDE))
+			setDadosSaude(json.getJSONObject(PacienteKeys.DADOS_SAUDE));
+
+		if (json.has(PacienteKeys.DADOS_PAROQUIA))
+			setDadosParoquia(json.getJSONObject(PacienteKeys.DADOS_PAROQUIA));
 	}
 
+	// TODO
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		return json;

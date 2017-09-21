@@ -1,11 +1,21 @@
 package br.com.naasp.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DadosFamiliar {
 
 	private String parentesco;
 	private String profissao;
 	private String escolaridade;
 	private int idade;
+
+	private static class DadosFamiliaresKeys {
+		public static final String PARENTESCO = "parentesco";
+		public static final String PROFISSAO = "profissao";
+		public static final String ESCOLARIDADE = "escolaridade";
+		public static final String IDADE = "idade";
+	}
 
 	public String getParentesco() {
 		return parentesco;
@@ -44,6 +54,20 @@ public class DadosFamiliar {
 		this.profissao = profissao;
 		this.escolaridade = escolaridade;
 		this.idade = idade;
+	}
+
+	public DadosFamiliar(JSONObject json) throws JSONException {
+		if (json.has(DadosFamiliaresKeys.PARENTESCO))
+			parentesco = json.getString(DadosFamiliaresKeys.PARENTESCO);
+
+		if (json.has(DadosFamiliaresKeys.PROFISSAO))
+			parentesco = json.getString(DadosFamiliaresKeys.PROFISSAO);
+
+		if (json.has(DadosFamiliaresKeys.ESCOLARIDADE))
+			parentesco = json.getString(DadosFamiliaresKeys.ESCOLARIDADE);
+
+		if (json.has(DadosFamiliaresKeys.IDADE))
+			idade = json.getInt(DadosFamiliaresKeys.IDADE);
 	}
 
 	@Override

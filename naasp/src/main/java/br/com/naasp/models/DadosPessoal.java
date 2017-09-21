@@ -3,6 +3,10 @@ package br.com.naasp.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DadosPessoal {
 	private String nome;
 	private String dataNascimento;
@@ -15,6 +19,19 @@ public class DadosPessoal {
 	private String endereco;
 	private String pontoRef;
 	private List<String> telefones;
+
+	private static class DadosPessoalKeys {
+		public static final String NOME = "nome";
+		public static final String DATA_NASCIMENTO = "dataNascimento";
+		public static final String SEXO = "sexo";
+		public static final String ESTADO_CIVIL = "estadoCivil";
+		public static final String RELIGIAO = "religiao";
+		public static final String RG = "rg";
+		public static final String CPF = "cpf";
+		public static final String ESCOLARIDADE = "escolaridade";
+		public static final String PONTO_REF = "pontoRef";
+		public static final String TELEFONES = "telefones";
+	}
 
 	public String getNome() {
 		return nome;
@@ -104,7 +121,47 @@ public class DadosPessoal {
 		this.telefones = telefones;
 	}
 
+	private void setTelefones(JSONArray jsonArray) throws JSONException {
+		this.telefones = new ArrayList<String>();
+		for (int i = 0; i < jsonArray.length(); i++)
+			telefones.add(jsonArray.getString(i));
+	}
+
 	public DadosPessoal() {
 		telefones = new ArrayList<String>();
 	}
+
+	DadosPessoal(JSONObject json) throws JSONException {
+		if (json.has(DadosPessoalKeys.NOME))
+			nome = json.getString(DadosPessoalKeys.NOME);
+
+		if (json.has(DadosPessoalKeys.DATA_NASCIMENTO))
+			dataNascimento = json.getString(DadosPessoalKeys.DATA_NASCIMENTO);
+
+		if (json.has(DadosPessoalKeys.SEXO))
+			sexo = (char) json.get(DadosPessoalKeys.SEXO);
+
+		if (json.has(DadosPessoalKeys.ESTADO_CIVIL))
+			estadoCivil = json.getString(DadosPessoalKeys.ESTADO_CIVIL);
+
+		if (json.has(DadosPessoalKeys.RELIGIAO))
+			religiao = json.getString(DadosPessoalKeys.RELIGIAO);
+
+		if (json.has(DadosPessoalKeys.RG))
+			rg = json.getString(DadosPessoalKeys.RG);
+
+		if (json.has(DadosPessoalKeys.CPF))
+			cpf = json.getString(DadosPessoalKeys.CPF);
+
+		if (json.has(DadosPessoalKeys.ESCOLARIDADE))
+			escolaridade = json.getString(DadosPessoalKeys.ESCOLARIDADE);
+
+		if (json.has(DadosPessoalKeys.PONTO_REF))
+			pontoRef = json.getString(DadosPessoalKeys.PONTO_REF);
+
+		if (json.has(DadosPessoalKeys.TELEFONES))
+			setTelefones(json.getJSONArray(DadosPessoalKeys.TELEFONES));
+
+	}
+
 }
