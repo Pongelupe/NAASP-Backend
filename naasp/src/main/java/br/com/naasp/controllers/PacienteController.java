@@ -1,5 +1,7 @@
 package br.com.naasp.controllers;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +24,13 @@ public class PacienteController {
 	private PacienteDAO pacienteDAO;
 
 	@RequestMapping(value = "Cadastro/paciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
-	public @ResponseBody Object cadastrarPaciente(@RequestBody Paciente p) {
+	public @ResponseBody String cadastrarPaciente(@RequestBody JSONObject json) throws JSONException {
 		boolean erroFlag = true;
-		pacienteDAO.gravar(p);
+		Paciente p = new Paciente(json);
+		// pacienteDAO.gravar(p);
 
 		CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
-		responseObject.setIdPaciente(Integer.toString(p.getId()));
+		responseObject.setIdPaciente(Integer.toString(p.getNumFicha()));
 		String response = responseObject.toJson().toString();
 		return response;
 	}

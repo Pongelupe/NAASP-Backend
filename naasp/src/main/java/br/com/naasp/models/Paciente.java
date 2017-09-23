@@ -3,6 +3,7 @@ package br.com.naasp.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Paciente {
 
 	@OneToOne
 	private DadosPessoal dadosPessoais;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_paciente")
 	private List<DadosFamiliar> dadosFamiliares = new ArrayList<DadosFamiliar>();
 	@OneToOne
