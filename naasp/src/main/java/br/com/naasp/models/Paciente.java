@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,7 +19,7 @@ public class Paciente {
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer idPaciente;
 
 	private int numFicha;
 	private String dataPrimeiroAtend;
@@ -24,15 +27,16 @@ public class Paciente {
 	private String sacerdode;
 	private String respAtendimento;
 
-	// Dados Pessoais
+	@OneToOne
 	private DadosPessoal dadosPessoais;
-	// Dados Familiares
-	private List<DadosFamiliar> dadosFamiliares;
-	// Dados de Morada
+	@OneToMany
+	@JoinColumn(name = "id_paciente")
+	private List<DadosFamiliar> dadosFamiliares = new ArrayList<DadosFamiliar>();
+	@OneToOne
 	private DadosMorada dadosMorada;
-	// Dados de Saúde
+	@OneToOne
 	private DadosSaude dadosSaude;
-	// Dados Paróquia
+	@OneToOne
 	private DadosParoquias dadosParoquia;
 
 	private static class PacienteKeys {
@@ -49,7 +53,7 @@ public class Paciente {
 	}
 
 	public int getId() {
-		return id;
+		return idPaciente;
 	}
 
 	public int getNumFicha() {
@@ -133,6 +137,10 @@ public class Paciente {
 
 	private void setDadosParoquia(JSONObject jsonObject) throws JSONException {
 		this.dadosParoquia = new DadosParoquias(jsonObject);
+	}
+
+	public void setDadosFamiliares(List<DadosFamiliar> dadosFamiliares) {
+		this.dadosFamiliares = dadosFamiliares;
 	}
 
 	@Override

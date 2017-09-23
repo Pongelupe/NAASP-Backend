@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,18 +15,34 @@ public class DadosFamiliar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int pacienteId;
+	private int familiaId;
 
 	private String parentesco;
 	private String profissao;
 	private String escolaridade;
 	private int idade;
 
+	@ManyToOne
+	@JoinColumn(name = "id_paciente")
+	private Paciente paciente;
+
 	private static class DadosFamiliaresKeys {
 		public static final String PARENTESCO = "parentesco";
 		public static final String PROFISSAO = "profissao";
 		public static final String ESCOLARIDADE = "escolaridade";
 		public static final String IDADE = "idade";
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public int getPacienteId() {
+		return familiaId;
 	}
 
 	public String getParentesco() {

@@ -3,11 +3,24 @@ package br.com.naasp.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Entity
 public class DadosPessoal {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int pessoalId;
+
 	private String nome;
 	private String dataNascimento;
 	private char sexo;
@@ -18,7 +31,9 @@ public class DadosPessoal {
 	private String escolaridade;
 	private String endereco;
 	private String pontoRef;
-	private List<String> telefones;
+	@OneToMany
+	@JoinColumn(name = "id_pessoa")
+	private List<Telefone> telefones = new ArrayList<Telefone>();
 
 	private static class DadosPessoalKeys {
 		public static final String NOME = "nome";
@@ -113,26 +128,23 @@ public class DadosPessoal {
 		this.pontoRef = pontoRef;
 	}
 
-	public List<String> getTelefones() {
+	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<String> telefones) {
+	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
 	}
 
-	private void setTelefones(JSONArray jsonArray) throws JSONException {
-		this.telefones = new ArrayList<String>();
-		for (int i = 0; i < jsonArray.length(); i++)
-			telefones.add(jsonArray.getString(i));
+	private void setTelefones(JSONArray jsonArray) {
+		// TODO
 	}
 
 	public DadosPessoal() {
-		telefones = new ArrayList<String>();
 	}
 
 	public DadosPessoal(String nome, String dataNascimento, char sexo, String estadoCivil, String religiao, String rg,
-			String cpf, String escolaridade, String endereco, String pontoRef, List<String> telefones) {
+			String cpf, String escolaridade, String endereco, String pontoRef, List<Telefone> telefones) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
@@ -176,7 +188,6 @@ public class DadosPessoal {
 
 		if (json.has(DadosPessoalKeys.TELEFONES))
 			setTelefones(json.getJSONArray(DadosPessoalKeys.TELEFONES));
-
 	}
 
 }

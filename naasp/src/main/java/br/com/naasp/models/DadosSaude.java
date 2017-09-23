@@ -1,9 +1,19 @@
 package br.com.naasp.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Entity
 public class DadosSaude {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int dadosSaudeId;
 
 	private String quemQuais;
 
