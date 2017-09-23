@@ -2,6 +2,7 @@ package br.com.naasp.resources;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.naasp.models.Paciente;
 import br.com.naasp.resources.model.responses.CadastroPacienteResposta;
 
+@Controller
 @RequestMapping(value = "/Cadastro")
 public class Cadastro {
 

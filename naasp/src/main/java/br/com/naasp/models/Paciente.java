@@ -203,7 +203,7 @@ public class Paciente {
 		return json;
 	}
 
-	public class PacienteBuilder {
+	public static class PacienteBuilder {
 		private int numFicha;
 		private String dataPrimeiroAtend;
 		private String paroco;

@@ -13,6 +13,11 @@ public class DadosMorada {
 		public static final String DESCRICAO_MORADA = "descricaoMorada";
 	}
 
+	public DadosMorada(String tipo, String descricaoMorada) {
+		this.tipo = tipo;
+		this.descricaoMorada = descricaoMorada;
+	}
+
 	public DadosMorada(JSONObject json) throws JSONException {
 		if (json.has(DadosMoradaKeys.TIPO))
 			tipo = json.getString(DadosMoradaKeys.TIPO);

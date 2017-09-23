@@ -36,6 +36,15 @@ public class DadosParoquias {
 			paroquiaBairro = json.getString(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST);
 	}
 
+	public DadosParoquias(String paroquiaBairro, String descricaoAtividade, String pastoralInserido,
+			String pastoralAcompanhado, String atividadeOutrasInst) {
+		this.paroquiaBairro = paroquiaBairro;
+		this.descricaoAtividade = descricaoAtividade;
+		this.pastoralInserido = pastoralInserido;
+		this.pastoralAcompanhado = pastoralAcompanhado;
+		this.atividadeOutrasInst = atividadeOutrasInst;
+	}
+
 	public String getParoquiaBairro() {
 		return paroquiaBairro;
 	}

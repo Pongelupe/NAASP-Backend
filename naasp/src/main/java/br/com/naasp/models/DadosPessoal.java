@@ -131,6 +131,21 @@ public class DadosPessoal {
 		telefones = new ArrayList<String>();
 	}
 
+	public DadosPessoal(String nome, String dataNascimento, char sexo, String estadoCivil, String religiao, String rg,
+			String cpf, String escolaridade, String endereco, String pontoRef, List<String> telefones) {
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+		this.estadoCivil = estadoCivil;
+		this.religiao = religiao;
+		this.rg = rg;
+		this.cpf = cpf;
+		this.escolaridade = escolaridade;
+		this.endereco = endereco;
+		this.pontoRef = pontoRef;
+		this.telefones = telefones;
+	}
+
 	DadosPessoal(JSONObject json) throws JSONException {
 		if (json.has(DadosPessoalKeys.NOME))
 			nome = json.getString(DadosPessoalKeys.NOME);
