@@ -154,7 +154,7 @@ public class DadosPessoal {
 			dataNascimento = json.getString(DadosPessoalKeys.DATA_NASCIMENTO);
 
 		if (json.has(DadosPessoalKeys.SEXO))
-			sexo = (char) json.get(DadosPessoalKeys.SEXO);
+			sexo = (Character) json.get(DadosPessoalKeys.SEXO);
 
 		if (json.has(DadosPessoalKeys.ESTADO_CIVIL))
 			estadoCivil = json.getString(DadosPessoalKeys.ESTADO_CIVIL);

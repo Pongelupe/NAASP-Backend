@@ -5,21 +5,18 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.naasp.daos.PacienteDAO;
-
 @Entity
 public class Paciente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue
+	private Integer id;
 
 	private int numFicha;
 	private String dataPrimeiroAtend;
@@ -138,10 +135,6 @@ public class Paciente {
 		this.dadosParoquia = new DadosParoquias(jsonObject);
 	}
 
-	public void add() {
-		PacienteDAO.gravar(this);
-	}
-
 	@Override
 	public String toString() {
 		return super.toString() + " Paciente [numFicha=" + numFicha + ", dataPrimeiroAtend=" + dataPrimeiroAtend
@@ -163,6 +156,11 @@ public class Paciente {
 		this.dadosMorada = dadosMorada;
 		this.dadosSaude = dadosSaude;
 		this.dadosParoquia = dadosParoquia;
+
+	}
+
+	public Paciente() {
+		this.dadosFamiliares = new ArrayList<DadosFamiliar>();
 	}
 
 	public Paciente(JSONObject json) throws JSONException {
