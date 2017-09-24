@@ -18,34 +18,31 @@ import org.json.JSONObject;
 @Entity
 public class Paciente {
 
-	@Id
 	@GeneratedValue
-	private Integer idPaciente;
+	@Id
+	public Integer idPaciente;
 
-	private int numFicha;
-	private String dataPrimeiroAtend;
-	private String paroco;
-	private String sacerdode;
-	private String respAtendimento;
+	@OneToOne(cascade = CascadeType.ALL)
+	private DadosGerais dadosGerais;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private DadosPessoal dadosPessoais;
-	@OneToMany(cascade = CascadeType.ALL)
+
 	@JoinColumn(name = "id_paciente")
-	private List<DadosFamiliar> dadosFamiliares = new ArrayList<DadosFamiliar>();
-	@OneToOne
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<DadosFamiliar> dadosFamiliares;
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private DadosMorada dadosMorada;
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private DadosSaude dadosSaude;
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private DadosParoquias dadosParoquia;
 
 	private static class PacienteKeys {
-		private static final String NUM_FICHA = "numFicha";
-		private static final String DATA_PRIM_ATENDIMENTO = "dataPrimAtend";
-		private static final String PAROCO = "paroco";
-		private static final String SACERDOTE = "sacerdode";
-		private static final String RESP_ATENDIMENTO = "respAtendimento";
+
 		private static final String DADOS_PESSOAIS = "dadosPessoais";
 		private static final String DADOS_FAMILIARES = "dadosFamiliares";
 		private static final String DADOS_MORADA = "dadosMorada";
@@ -57,64 +54,24 @@ public class Paciente {
 		return idPaciente;
 	}
 
-	public int getNumFicha() {
-		return numFicha;
-	}
-
-	public void setNumFicha(int numFicha) {
-		this.numFicha = numFicha;
-	}
-
-	public String getDataPrimeiroAtend() {
-		return dataPrimeiroAtend;
-	}
-
-	public void setDataPrimeiroAtend(String dataPrimeiroAtend) {
-		this.dataPrimeiroAtend = dataPrimeiroAtend;
-	}
-
-	public String getParoco() {
-		return paroco;
-	}
-
-	public void setParoco(String paroco) {
-		this.paroco = paroco;
-	}
-
-	public String getSacerdode() {
-		return sacerdode;
-	}
-
-	public void setSacerdode(String sacerdode) {
-		this.sacerdode = sacerdode;
-	}
-
-	public String getRespAtendimento() {
-		return respAtendimento;
-	}
-
-	public void setRespAtendimento(String respAtendimento) {
-		this.respAtendimento = respAtendimento;
-	}
-
 	public DadosPessoal getDadosPessoais() {
-		return dadosPessoais;
+		return this.dadosPessoais;
 	}
 
 	public List<DadosFamiliar> getDadosFamiliares() {
-		return dadosFamiliares;
+		return this.dadosFamiliares;
 	}
 
 	public DadosMorada getDadosMorada() {
-		return dadosMorada;
+		return this.dadosMorada;
 	}
 
 	public DadosSaude getDadosSaude() {
-		return dadosSaude;
+		return this.dadosSaude;
 	}
 
 	public DadosParoquias getDadosParoquia() {
-		return dadosParoquia;
+		return this.dadosParoquia;
 	}
 
 	private void setDadosPessoais(JSONObject jsonObject) throws JSONException {
@@ -129,7 +86,7 @@ public class Paciente {
 		this.dadosFamiliares = new ArrayList<DadosFamiliar>();
 
 		for (int i = 0; i < jsonArray.length(); i++)
-			dadosFamiliares.add(new DadosFamiliar(jsonArray.getJSONObject(i)));
+			this.dadosFamiliares.add(new DadosFamiliar(jsonArray.getJSONObject(i)));
 	}
 
 	private void setDadosSaude(JSONObject jsonObject) throws JSONException {
@@ -146,26 +103,19 @@ public class Paciente {
 
 	@Override
 	public String toString() {
-		return super.toString() + " Paciente [numFicha=" + numFicha + ", dataPrimeiroAtend=" + dataPrimeiroAtend
-				+ ", paroco=" + paroco + ", sacerdode=" + sacerdode + ", respAtendimento=" + respAtendimento
-				+ ", dadosPessoais=" + dadosPessoais + ", dadosFamiliares=" + dadosFamiliares + ", dadosMorada="
-				+ dadosMorada + ", dadosSaude=" + dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
+		return "Paciente [idPaciente=" + idPaciente + ", dadosGerais=" + dadosGerais + ", dadosPessoais="
+				+ dadosPessoais + ", dadosFamiliares=" + dadosFamiliares + ", dadosMorada=" + dadosMorada
+				+ ", dadosSaude=" + dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
 	}
 
-	private Paciente(int numFicha, String dataPrimAtend, String paroco, String sacerdote, String respAtendimento,
-			DadosPessoal dadosPessoais, List<DadosFamiliar> dadosFamiliares, DadosMorada dadosMorada,
-			DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
-		this.numFicha = numFicha;
-		this.dataPrimeiroAtend = dataPrimAtend;
-		this.paroco = paroco;
-		this.sacerdode = sacerdote;
-		this.respAtendimento = respAtendimento;
+	public Paciente(DadosGerais dadosGerais, DadosPessoal dadosPessoais, List<DadosFamiliar> dadosFamiliares,
+			DadosMorada dadosMorada, DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
+		this.dadosGerais = dadosGerais;
 		this.dadosPessoais = dadosPessoais;
 		this.dadosFamiliares = dadosFamiliares;
 		this.dadosMorada = dadosMorada;
 		this.dadosSaude = dadosSaude;
 		this.dadosParoquia = dadosParoquia;
-
 	}
 
 	public Paciente() {
@@ -173,20 +123,6 @@ public class Paciente {
 	}
 
 	public Paciente(JSONObject json) throws JSONException {
-		if (json.has(PacienteKeys.NUM_FICHA))
-			setNumFicha(json.getInt(PacienteKeys.NUM_FICHA));
-
-		if (json.has(PacienteKeys.DATA_PRIM_ATENDIMENTO))
-			setDataPrimeiroAtend(json.getString(PacienteKeys.DATA_PRIM_ATENDIMENTO));
-
-		if (json.has(PacienteKeys.PAROCO))
-			setParoco(json.getString(PacienteKeys.PAROCO));
-
-		if (json.has(PacienteKeys.SACERDOTE))
-			setSacerdode(json.getString(PacienteKeys.SACERDOTE));
-
-		if (json.has(PacienteKeys.RESP_ATENDIMENTO))
-			setRespAtendimento(json.getString(PacienteKeys.RESP_ATENDIMENTO));
 
 		if (json.has(PacienteKeys.DADOS_PESSOAIS))
 			setDadosPessoais(json.getJSONObject(PacienteKeys.DADOS_PESSOAIS));
@@ -211,39 +147,16 @@ public class Paciente {
 	}
 
 	public static class PacienteBuilder {
-		private int numFicha;
-		private String dataPrimeiroAtend;
-		private String paroco;
-		private String sacerdote;
-		private String respAtendimento;
+
+		private DadosGerais dadosGerais;
 		private DadosPessoal dadosPessoais;
 		private List<DadosFamiliar> dadosFamiliares = new ArrayList<DadosFamiliar>();
 		private DadosMorada dadosMorada;
 		private DadosSaude dadosSaude;
 		private DadosParoquias dadosParoquias;
 
-		public PacienteBuilder addNumFicha(int numFicha) {
-			this.numFicha = numFicha;
-			return this;
-		}
-
-		public PacienteBuilder addDataPrimeiroAtend(String dataPrimAtendimento) {
-			this.dataPrimeiroAtend = dataPrimAtendimento;
-			return this;
-		}
-
-		public PacienteBuilder addParoco(String paroco) {
-			this.paroco = paroco;
-			return this;
-		}
-
-		public PacienteBuilder addSacerdote(String sacerdote) {
-			this.sacerdote = sacerdote;
-			return this;
-		}
-
-		public PacienteBuilder addRespAtendimento(String respAtendimento) {
-			this.respAtendimento = respAtendimento;
+		public PacienteBuilder addDadosGerais(DadosGerais dadosGerais) {
+			this.dadosGerais = dadosGerais;
 			return this;
 		}
 
@@ -273,8 +186,7 @@ public class Paciente {
 		}
 
 		public Paciente build() {
-			return new Paciente(numFicha, dataPrimeiroAtend, paroco, sacerdote, respAtendimento, dadosPessoais,
-					dadosFamiliares, dadosMorada, dadosSaude, dadosParoquias);
+			return new Paciente(dadosGerais, dadosPessoais, dadosFamiliares, dadosMorada, dadosSaude, dadosParoquias);
 		}
 
 	}
