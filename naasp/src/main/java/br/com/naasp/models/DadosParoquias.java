@@ -24,7 +24,7 @@ public class DadosParoquias {
 	private static class DadosParoquiaKeys {
 		public static final String PAROQUIA_BAIRRO = "paroquiaBairro";
 		public static final String DESCRICAO_ATIVIDADE = "descricaoAtividade";
-		public static final String PASTORAL_INSERIDO = "pastoralInserdo";
+		public static final String PASTORAL_INSERIDO = "pastoralInserido";
 		public static final String PASTORAL_ACOMPANHADO = "pastoralAcompanhado";
 		public static final String ATIVIDADE_OUTRAS_INST = "atividadeOutrasInst";
 	}
@@ -34,16 +34,16 @@ public class DadosParoquias {
 			paroquiaBairro = json.getString(DadosParoquiaKeys.PAROQUIA_BAIRRO);
 
 		if (json.has(DadosParoquiaKeys.DESCRICAO_ATIVIDADE))
-			paroquiaBairro = json.getString(DadosParoquiaKeys.DESCRICAO_ATIVIDADE);
+			descricaoAtividade = json.getString(DadosParoquiaKeys.DESCRICAO_ATIVIDADE);
 
 		if (json.has(DadosParoquiaKeys.PASTORAL_INSERIDO))
-			paroquiaBairro = json.getString(DadosParoquiaKeys.PASTORAL_INSERIDO);
+			pastoralInserido = json.getString(DadosParoquiaKeys.PASTORAL_INSERIDO);
 
 		if (json.has(DadosParoquiaKeys.PASTORAL_ACOMPANHADO))
-			paroquiaBairro = json.getString(DadosParoquiaKeys.PASTORAL_ACOMPANHADO);
+			pastoralAcompanhado = json.getString(DadosParoquiaKeys.PASTORAL_ACOMPANHADO);
 
 		if (json.has(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST))
-			paroquiaBairro = json.getString(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST);
+			atividadeOutrasInst = json.getString(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST);
 	}
 
 	public DadosParoquias(String paroquiaBairro, String descricaoAtividade, String pastoralInserido,
@@ -97,9 +97,9 @@ public class DadosParoquias {
 
 	@Override
 	public String toString() {
-		return "DadosParoquias [paroquiaBairro=" + paroquiaBairro + ", descricaoAtividade=" + descricaoAtividade
-				+ ", pastoralInserido=" + pastoralInserido + ", pastoralAcompanhado=" + pastoralAcompanhado
-				+ ", atividadeOutrasInst=" + atividadeOutrasInst + "]";
+		return "DadosParoquias [paroquiaId=" + paroquiaId + ", paroquiaBairro=" + paroquiaBairro
+				+ ", descricaoAtividade=" + descricaoAtividade + ", pastoralInserido=" + pastoralInserido
+				+ ", pastoralAcompanhado=" + pastoralAcompanhado + ", atividadeOutrasInst=" + atividadeOutrasInst + "]";
 	}
 
 }

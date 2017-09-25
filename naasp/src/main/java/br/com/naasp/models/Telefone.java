@@ -14,12 +14,42 @@ public class Telefone {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int telefoneId;
 
-	public String telefones;
+	public String telefone;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_pessoa")
 	private DadosPessoal dadosPessoal;
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public DadosPessoal getDadosPessoal() {
+		return dadosPessoal;
+	}
+
+	public void setDadosPessoal(DadosPessoal dadosPessoal) {
+		this.dadosPessoal = dadosPessoal;
+	}
+
+	public int getTelefoneId() {
+		return telefoneId;
+	}
+
 	public Telefone() {
 	}
+
+	public Telefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	@Override
+	public String toString() {
+		return "Telefone [telefoneId=" + telefoneId + ", telefones=" + telefone + "]";
+	}
+
 }

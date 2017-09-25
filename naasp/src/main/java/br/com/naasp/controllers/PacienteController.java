@@ -19,9 +19,9 @@ public class PacienteController {
 	private PacienteRepository repository;
 
 	@RequestMapping(value = "Cadastro/paciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
-	public @ResponseBody String cadastrarPaciente(@RequestBody JSONObject json) throws JSONException {
+	public @ResponseBody String cadastrarPaciente(@RequestBody String json) throws JSONException {
 		boolean erroFlag = true;
-		Paciente p = new Paciente(json);
+		Paciente p = new Paciente(new JSONObject(json));
 		repository.save(p);
 
 		CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);

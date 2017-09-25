@@ -36,7 +36,7 @@ public class DadosSaude {
 
 	@Override
 	public String toString() {
-		return "DadosSaude [quemQuais=" + quemQuais + "]";
+		return "DadosSaude [dadosSaudeId=" + dadosSaudeId + ", quemQuais=" + quemQuais + "]";
 	}
 
 }

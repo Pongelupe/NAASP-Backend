@@ -101,8 +101,8 @@ public class DadosFamiliar {
 
 	@Override
 	public String toString() {
-		return "DadosFamiliar [parentesco=" + parentesco + ", profissao=" + profissao + ", escolaridade=" + escolaridade
-				+ ", idade=" + idade + "]";
+		return "DadosFamiliar [familiaId=" + familiaId + ", parentesco=" + parentesco + ", profissao=" + profissao
+				+ ", escolaridade=" + escolaridade + ", idade=" + idade + ", paciente=" + paciente + "]";
 	}
 
 }

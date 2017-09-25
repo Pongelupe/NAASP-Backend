@@ -3,6 +3,7 @@ package br.com.naasp.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class DadosPessoal {
 	private String escolaridade;
 	private String endereco;
 	private String pontoRef;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa")
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 
@@ -44,7 +45,8 @@ public class DadosPessoal {
 		public static final String RG = "rg";
 		public static final String CPF = "cpf";
 		public static final String ESCOLARIDADE = "escolaridade";
-		public static final String PONTO_REF = "pontoRef";
+		public static final String PONTO_REF = "pontoRe";
+		public static final String ENDERECO = "endereco";
 		public static final String TELEFONES = "telefones";
 	}
 
@@ -136,8 +138,11 @@ public class DadosPessoal {
 		this.telefones = telefones;
 	}
 
-	private void setTelefones(JSONArray jsonArray) {
-		// TODO
+	private void setTelefones(JSONArray jsonArray) throws JSONException {
+		telefones = new ArrayList<Telefone>();
+
+		for (int i = 0; i < jsonArray.length(); i++)
+			telefones.add(new Telefone(jsonArray.getString(i)));
 	}
 
 	public DadosPessoal() {
@@ -166,7 +171,7 @@ public class DadosPessoal {
 			dataNascimento = json.getString(DadosPessoalKeys.DATA_NASCIMENTO);
 
 		if (json.has(DadosPessoalKeys.SEXO))
-			sexo = (Character) json.get(DadosPessoalKeys.SEXO);
+			sexo = json.getString(DadosPessoalKeys.SEXO).charAt(0);
 
 		if (json.has(DadosPessoalKeys.ESTADO_CIVIL))
 			estadoCivil = json.getString(DadosPessoalKeys.ESTADO_CIVIL);
@@ -186,8 +191,19 @@ public class DadosPessoal {
 		if (json.has(DadosPessoalKeys.PONTO_REF))
 			pontoRef = json.getString(DadosPessoalKeys.PONTO_REF);
 
+		if (json.has(DadosPessoalKeys.ENDERECO))
+			endereco = json.getString(DadosPessoalKeys.ENDERECO);
+
 		if (json.has(DadosPessoalKeys.TELEFONES))
 			setTelefones(json.getJSONArray(DadosPessoalKeys.TELEFONES));
+	}
+
+	@Override
+	public String toString() {
+		return "DadosPessoal [pessoalId=" + pessoalId + ", nome=" + nome + ", dataNascimento=" + dataNascimento
+				+ ", sexo=" + sexo + ", estadoCivil=" + estadoCivil + ", religiao=" + religiao + ", rg=" + rg + ", cpf="
+				+ cpf + ", escolaridade=" + escolaridade + ", endereco=" + endereco + ", pontoRef=" + pontoRef
+				+ ", telefones=" + telefones + "]";
 	}
 
 }

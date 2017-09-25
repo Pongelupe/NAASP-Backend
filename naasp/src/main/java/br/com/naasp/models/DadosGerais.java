@@ -11,9 +11,9 @@ import org.json.JSONObject;
 @Entity
 public class DadosGerais {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	public Integer idDadosGerais;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int idDadosGerais;
 
 	private int numFicha;
 	private String dataPrimeiroAtend;
@@ -23,10 +23,10 @@ public class DadosGerais {
 
 	private static class DadosGeraiskeys {
 
-		private static final String NUM_FICHA = "numFicha";
-		private static final String DATA_PRIM_ATENDIMENTO = "dataPrimAtend";
+		private static final String NUM_FICHA = "numeroFicha";
+		private static final String DATA_PRIM_ATENDIMENTO = "dataPrimeiroAtend";
 		private static final String PAROCO = "paroco";
-		private static final String SACERDOTE = "sacerdode";
+		private static final String SACERDOTE = "sacerdote";
 		private static final String RESP_ATENDIMENTO = "respAtendimento";
 	}
 
@@ -80,7 +80,7 @@ public class DadosGerais {
 
 	@Override
 	public String toString() {
-		return "DadosGerais [idPaciente=" + idDadosGerais + ", dataPrimeiroAtend=" + dataPrimeiroAtend + ", paroco="
+		return "DadosGerais [idDadosGerais=" + idDadosGerais + ", dataPrimeiroAtend=" + dataPrimeiroAtend + ", paroco="
 				+ paroco + ", sacerdode=" + sacerdode + ", respAtendimento=" + respAtendimento + "]";
 	}
 

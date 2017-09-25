@@ -20,7 +20,7 @@ public class DadosMorada {
 
 	private static class DadosMoradaKeys {
 		public static final String TIPO = "tipo";
-		public static final String DESCRICAO_MORADA = "descricaoMorada";
+		public static final String DESCRICAO_MORADA = "descricaoMoradia";
 	}
 
 	public DadosMorada(String tipo, String descricaoMorada) {
@@ -54,7 +54,7 @@ public class DadosMorada {
 
 	@Override
 	public String toString() {
-		return "DadosMorada [tipo=" + tipo + ", descricaoMorada=" + descricaoMorada + "]";
+		return "DadosMorada [moradaId=" + moradaId + ", tipo=" + tipo + ", descricaoMorada=" + descricaoMorada + "]";
 	}
 
 }

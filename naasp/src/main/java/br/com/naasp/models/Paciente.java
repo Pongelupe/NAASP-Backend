@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,9 +19,9 @@ import org.json.JSONObject;
 @Entity
 public class Paciente {
 
-	@GeneratedValue
 	@Id
-	public Integer idPaciente;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int idPaciente;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private DadosGerais dadosGerais;
@@ -43,11 +44,12 @@ public class Paciente {
 
 	private static class PacienteKeys {
 
+		private static final String DADOS_GERAIS = "dadosGerais";
 		private static final String DADOS_PESSOAIS = "dadosPessoais";
 		private static final String DADOS_FAMILIARES = "dadosFamiliares";
-		private static final String DADOS_MORADA = "dadosMorada";
+		private static final String DADOS_MORADIA = "dadosMoradia";
 		private static final String DADOS_SAUDE = "dadosSaude";
-		private static final String DADOS_PAROQUIA = "dadosSaude";
+		private static final String DADOS_PAROQUIA = "dadosParoquia";
 	}
 
 	public int getId() {
@@ -72,6 +74,10 @@ public class Paciente {
 
 	public DadosParoquias getDadosParoquia() {
 		return this.dadosParoquia;
+	}
+
+	private void setDadosGerais(JSONObject jsonObject) throws JSONException {
+		this.dadosGerais = new DadosGerais(jsonObject);
 	}
 
 	private void setDadosPessoais(JSONObject jsonObject) throws JSONException {
@@ -124,14 +130,17 @@ public class Paciente {
 
 	public Paciente(JSONObject json) throws JSONException {
 
+		if (json.has(PacienteKeys.DADOS_GERAIS))
+			setDadosGerais(json.getJSONObject(PacienteKeys.DADOS_GERAIS));
+
 		if (json.has(PacienteKeys.DADOS_PESSOAIS))
 			setDadosPessoais(json.getJSONObject(PacienteKeys.DADOS_PESSOAIS));
 
 		if (json.has(PacienteKeys.DADOS_FAMILIARES))
 			setDadosFamiliares(json.getJSONArray(PacienteKeys.DADOS_FAMILIARES));
 
-		if (json.has(PacienteKeys.DADOS_MORADA))
-			setDadosMorada(json.getJSONObject(PacienteKeys.DADOS_MORADA));
+		if (json.has(PacienteKeys.DADOS_MORADIA))
+			setDadosMorada(json.getJSONObject(PacienteKeys.DADOS_MORADIA));
 
 		if (json.has(PacienteKeys.DADOS_SAUDE))
 			setDadosSaude(json.getJSONObject(PacienteKeys.DADOS_SAUDE));
