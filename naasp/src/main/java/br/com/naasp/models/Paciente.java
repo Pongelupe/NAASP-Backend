@@ -1,18 +1,12 @@
 package br.com.naasp.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,9 +23,8 @@ public class Paciente {
 	@OneToOne(cascade = CascadeType.ALL)
 	private DadosPessoal dadosPessoais;
 
-	@JoinColumn(name = "id_paciente")
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<DadosFamiliar> dadosFamiliares;
+	@OneToOne(cascade = CascadeType.ALL)
+	private DadosFamiliar dadosFamiliar;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private DadosMorada dadosMorada;
@@ -60,10 +53,6 @@ public class Paciente {
 		return this.dadosPessoais;
 	}
 
-	public List<DadosFamiliar> getDadosFamiliares() {
-		return this.dadosFamiliares;
-	}
-
 	public DadosMorada getDadosMorada() {
 		return this.dadosMorada;
 	}
@@ -88,11 +77,8 @@ public class Paciente {
 		this.dadosMorada = new DadosMorada(jsonObject);
 	}
 
-	private void setDadosFamiliares(JSONArray jsonArray) throws JSONException {
-		this.dadosFamiliares = new ArrayList<DadosFamiliar>();
-
-		for (int i = 0; i < jsonArray.length(); i++)
-			this.dadosFamiliares.add(new DadosFamiliar(jsonArray.getJSONObject(i)));
+	private void setDadosFamilar(JSONObject jsonObject) throws JSONException {
+		this.dadosFamiliar = new DadosFamiliar(jsonObject);
 	}
 
 	private void setDadosSaude(JSONObject jsonObject) throws JSONException {
@@ -103,29 +89,25 @@ public class Paciente {
 		this.dadosParoquia = new DadosParoquias(jsonObject);
 	}
 
-	public void setDadosFamiliares(List<DadosFamiliar> dadosFamiliares) {
-		this.dadosFamiliares = dadosFamiliares;
-	}
-
 	@Override
 	public String toString() {
 		return "Paciente [idPaciente=" + idPaciente + ", dadosGerais=" + dadosGerais + ", dadosPessoais="
-				+ dadosPessoais + ", dadosFamiliares=" + dadosFamiliares + ", dadosMorada=" + dadosMorada
-				+ ", dadosSaude=" + dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
+				+ dadosPessoais + ", dadosFamiliar=" + dadosFamiliar + ", dadosMorada=" + dadosMorada + ", dadosSaude="
+				+ dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
 	}
 
-	public Paciente(DadosGerais dadosGerais, DadosPessoal dadosPessoais, List<DadosFamiliar> dadosFamiliares,
+	public Paciente(DadosGerais dadosGerais, DadosPessoal dadosPessoais, DadosFamiliar dadosFamiliar,
 			DadosMorada dadosMorada, DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
+		super();
 		this.dadosGerais = dadosGerais;
 		this.dadosPessoais = dadosPessoais;
-		this.dadosFamiliares = dadosFamiliares;
+		this.dadosFamiliar = dadosFamiliar;
 		this.dadosMorada = dadosMorada;
 		this.dadosSaude = dadosSaude;
 		this.dadosParoquia = dadosParoquia;
 	}
 
 	public Paciente() {
-		this.dadosFamiliares = new ArrayList<DadosFamiliar>();
 	}
 
 	public Paciente(JSONObject json) throws JSONException {
@@ -136,8 +118,10 @@ public class Paciente {
 		if (json.has(PacienteKeys.DADOS_PESSOAIS))
 			setDadosPessoais(json.getJSONObject(PacienteKeys.DADOS_PESSOAIS));
 
+		// if (json.has(PacienteKeys.DADOS_FAMILIARES))
+		// setDadosFamiliares(json.getJSONArray(PacienteKeys.DADOS_FAMILIARES));
 		if (json.has(PacienteKeys.DADOS_FAMILIARES))
-			setDadosFamiliares(json.getJSONArray(PacienteKeys.DADOS_FAMILIARES));
+			setDadosFamilar(json.getJSONObject(PacienteKeys.DADOS_FAMILIARES));
 
 		if (json.has(PacienteKeys.DADOS_MORADIA))
 			setDadosMorada(json.getJSONObject(PacienteKeys.DADOS_MORADIA));
@@ -159,7 +143,7 @@ public class Paciente {
 
 		private DadosGerais dadosGerais;
 		private DadosPessoal dadosPessoais;
-		private List<DadosFamiliar> dadosFamiliares = new ArrayList<DadosFamiliar>();
+		private DadosFamiliar dadosFamiliar;
 		private DadosMorada dadosMorada;
 		private DadosSaude dadosSaude;
 		private DadosParoquias dadosParoquias;
@@ -175,7 +159,7 @@ public class Paciente {
 		}
 
 		public PacienteBuilder addDadosFamiliar(DadosFamiliar dadosFamiliar) {
-			this.dadosFamiliares.add(dadosFamiliar);
+			this.dadosFamiliar = dadosFamiliar;
 			return this;
 		}
 
@@ -195,7 +179,7 @@ public class Paciente {
 		}
 
 		public Paciente build() {
-			return new Paciente(dadosGerais, dadosPessoais, dadosFamiliares, dadosMorada, dadosSaude, dadosParoquias);
+			return new Paciente(dadosGerais, dadosPessoais, dadosFamiliar, dadosMorada, dadosSaude, dadosParoquias);
 		}
 
 	}
