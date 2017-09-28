@@ -145,6 +145,7 @@ public class DadosPessoal {
 			telefones.add(new Telefone(jsonArray.getString(i)));
 	}
 
+	@Deprecated
 	public DadosPessoal() {
 	}
 

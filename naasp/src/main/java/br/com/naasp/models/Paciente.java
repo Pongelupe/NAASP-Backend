@@ -107,6 +107,7 @@ public class Paciente {
 		this.dadosParoquia = dadosParoquia;
 	}
 
+	@Deprecated
 	public Paciente() {
 	}
 

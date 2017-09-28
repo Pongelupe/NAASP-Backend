@@ -52,6 +52,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	@Deprecated
 	public Usuario() {
 	}
 

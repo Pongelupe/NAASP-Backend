@@ -40,6 +40,7 @@ public class Telefone {
 		return telefoneId;
 	}
 
+	@Deprecated
 	public Telefone() {
 	}
 
