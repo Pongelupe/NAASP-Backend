@@ -1,5 +1,8 @@
 package br.com.naasp.models;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +10,8 @@ import javax.persistence.Id;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import br.com.naasp.util.CryptographerHelper;
 
 @Entity
 public class Usuario {
@@ -65,7 +70,11 @@ public class Usuario {
 	}
 
 	public void encriptData() {
-		// TODO Auto-generated method stub
+		try {
+			setSenha(CryptographerHelper.encode(senha));
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
