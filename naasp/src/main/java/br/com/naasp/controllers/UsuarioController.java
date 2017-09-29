@@ -1,7 +1,5 @@
 package br.com.naasp.controllers;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +21,12 @@ public class UsuarioController {
 	@RequestMapping(value = "login", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody String json) throws JSONException {
 
-		Usuario usuario = new Usuario(new JSONObject(json));
-		usuario.encriptData();
+		Usuario usuarioRequest = new Usuario(new JSONObject(json));
+		usuarioRequest.encriptData();
 
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) repository.findAll();
-		boolean isLoginOk = usuarios.stream()
-				.filter(u -> u.getNome().equals(usuario.getNome()) && u.getSenha().equals(usuario.getSenha()))
-				.count() == 1;
+		Usuario usuario = repository.getLogin(usuarioRequest.getNome());
+
+		boolean isLoginOk = usuario != null ? usuarioRequest.getSenha().equals(usuario.getSenha()) : false;
 
 		Resposta resposta = new Resposta(isLoginOk);
 		if (!isLoginOk)
