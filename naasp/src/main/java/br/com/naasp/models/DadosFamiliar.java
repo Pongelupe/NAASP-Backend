@@ -30,7 +30,7 @@ public class DadosFamiliar {
 
 	private static final class DadosFamiliarKeys {
 		public static final String FAMILIARES = "familiares";
-		public static final String AJUDA_GOVERNO = "ajudaGoverno";
+		public static final String AJUDA_GOVERNO = "beneficioGoverno";
 	}
 
 	public DadosFamiliar(JSONObject jsonObject) throws JSONException {
@@ -40,6 +40,8 @@ public class DadosFamiliar {
 
 		if (jsonObject.has(DadosFamiliarKeys.FAMILIARES))
 			ajudaGoverno = jsonObject.getString(DadosFamiliarKeys.AJUDA_GOVERNO);
+		else
+			ajudaGoverno = "NÃO POSSUI";
 	}
 
 	private void setFamiliares(JSONArray jsonArray) throws JSONException {

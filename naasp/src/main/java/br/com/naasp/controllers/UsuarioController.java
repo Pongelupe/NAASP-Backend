@@ -19,20 +19,27 @@ public class UsuarioController {
 	private UsuarioRepository repository;
 
 	@RequestMapping(value = "login", method = org.springframework.web.bind.annotation.RequestMethod.POST)
-	public @ResponseBody String login(@RequestBody String json) throws JSONException {
+	public @ResponseBody String login(@RequestBody String json) {
 
-		Usuario usuarioRequest = new Usuario(new JSONObject(json));
-		usuarioRequest.encriptData();
+		Usuario usuarioRequest;
+		try {
+			usuarioRequest = new Usuario(new JSONObject(json));
+			usuarioRequest.encriptData();
 
-		Usuario usuario = repository.getLogin(usuarioRequest.getNome());
+			Usuario usuario = repository.getLogin(usuarioRequest.getNome());
 
-		boolean isLoginOk = usuario != null ? usuarioRequest.getSenha().equals(usuario.getSenha()) : false;
+			boolean isLoginOk = usuario != null ? usuarioRequest.getSenha().equals(usuario.getSenha()) : false;
 
-		Resposta resposta = new Resposta(isLoginOk);
-		if (!isLoginOk)
-			resposta.getMensagens().add("login invalido");
-		String response = resposta.toJson().toString();
-		return response;
+			Resposta resposta = new Resposta(isLoginOk);
+			if (!isLoginOk)
+				resposta.getMensagens().add("login invalido");
+			String response = resposta.toJson().toString();
+			return response;
+		} catch (JSONException e) {
+			Resposta resposta = new Resposta(false);
+			resposta.getMensagens().add(e.toString());
+			return resposta.toJson().toString();
+		}
 	}
 
 }
