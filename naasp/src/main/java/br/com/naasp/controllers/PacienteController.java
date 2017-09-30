@@ -30,7 +30,7 @@ public class PacienteController {
 			return response;
 		} catch (Exception e) {
 			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(false);
-			responseObject.getMensagens().add(e.toString());
+			responseObject.setMensagem(e.toString());
 			return responseObject.toJson().toString();
 		}
 	}

@@ -1,7 +1,5 @@
 package br.com.naasp.service.models;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,9 +30,7 @@ public class CadastroPacienteResposta extends Resposta {
 			json.put("Resposta", super.toJson());
 			json.put(CadastroPacienteRespostaKeys.ID_PACIENTE, idPaciente);
 		} catch (JSONException e) {
-			ArrayList<String> mensagens = new ArrayList<String>();
-			mensagens.add(e.toString());
-			json = new Resposta(false, mensagens).toJson();
+			json = new Resposta(e.toString()).toJson();
 		}
 		return json;
 	}

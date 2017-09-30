@@ -32,12 +32,11 @@ public class UsuarioController {
 
 			Resposta resposta = new Resposta(isLoginOk);
 			if (!isLoginOk)
-				resposta.getMensagens().add("login invalido");
+				resposta.setMensagem("login invalido");
 			String response = resposta.toJson().toString();
 			return response;
 		} catch (JSONException e) {
-			Resposta resposta = new Resposta(false);
-			resposta.getMensagens().add(e.toString());
+			Resposta resposta = new Resposta(e.toString());
 			return resposta.toJson().toString();
 		}
 	}

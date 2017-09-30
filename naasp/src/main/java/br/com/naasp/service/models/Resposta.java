@@ -1,36 +1,26 @@
 package br.com.naasp.service.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Resposta {
 
 	private boolean erro;
-	private List<String> mensagens;
+	private String mensagem;
 
 	public static class RespostaKeys {
 		public static final String ERRO = "erro";
-		public static final String MENSAGENS = "mensagens";
+		public static final String MENSAGEM = "mensagem";
 	}
 
 	public Resposta(boolean erro) {
-		this(erro, new ArrayList<String>());
-	}
-
-	public Resposta(boolean erro, List<String> mensagens) {
 		this.erro = erro;
-		this.mensagens = mensagens;
+		this.mensagem = "";
 	}
 
-	public List<String> getMensagens() {
-		return mensagens;
-	}
-
-	public void setMensagens(List<String> mensagens) {
-		this.mensagens = mensagens;
+	public Resposta(String mensagem) {
+		this.erro = false;
+		this.mensagem = mensagem;
 	}
 
 	public boolean isErro() {
@@ -41,11 +31,19 @@ public class Resposta {
 		this.erro = erro;
 	}
 
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
 			json.put(RespostaKeys.ERRO, erro);
-			json.put(RespostaKeys.MENSAGENS, mensagens);
+			json.put(RespostaKeys.MENSAGEM, mensagem);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
