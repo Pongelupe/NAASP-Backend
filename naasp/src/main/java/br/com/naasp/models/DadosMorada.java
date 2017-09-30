@@ -31,6 +31,8 @@ public class DadosMorada {
 	public DadosMorada(JSONObject json) throws JSONException {
 		if (json.has(DadosMoradaKeys.TIPO))
 			tipo = json.getString(DadosMoradaKeys.TIPO);
+		else
+			throw new JSONException("missing " + DadosMoradaKeys.TIPO);
 
 		if (json.has(DadosMoradaKeys.DESCRICAO_MORADA))
 			descricaoMorada = json.getString(DadosMoradaKeys.DESCRICAO_MORADA);

@@ -18,6 +18,8 @@ import org.json.JSONObject;
 @Entity
 public class DadosFamiliar {
 
+	private static final String NAO_INFORMADO = "NÃO INFORMADO";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int familiaId;
@@ -41,7 +43,7 @@ public class DadosFamiliar {
 		if (jsonObject.has(DadosFamiliarKeys.FAMILIARES))
 			ajudaGoverno = jsonObject.getString(DadosFamiliarKeys.AJUDA_GOVERNO);
 		else
-			ajudaGoverno = "NÃO POSSUI";
+			ajudaGoverno = NAO_INFORMADO;
 	}
 
 	private void setFamiliares(JSONArray jsonArray) throws JSONException {

@@ -32,6 +32,7 @@ public class DadosPessoal {
 	private String escolaridade;
 	private String endereco;
 	private String pontoRef;
+	private String profissao;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa")
 	private List<Telefone> telefones = new ArrayList<Telefone>();
@@ -47,6 +48,7 @@ public class DadosPessoal {
 		public static final String ESCOLARIDADE = "escolaridade";
 		public static final String PONTO_REF = "pontoRe";
 		public static final String ENDERECO = "endereco";
+		public static final String PROFISSAO = "profissao";
 		public static final String TELEFONES = "telefones";
 	}
 
@@ -130,6 +132,14 @@ public class DadosPessoal {
 		this.pontoRef = pontoRef;
 	}
 
+	public String getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
@@ -150,11 +160,13 @@ public class DadosPessoal {
 	}
 
 	public DadosPessoal(String nome, String dataNascimento, char sexo, String estadoCivil, String religiao, String rg,
-			String cpf, String escolaridade, String endereco, String pontoRef, List<Telefone> telefones) {
+			String cpf, String escolaridade, String endereco, String pontoRef, String profissao,
+			List<Telefone> telefones) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.estadoCivil = estadoCivil;
+		this.profissao = profissao;
 		this.religiao = religiao;
 		this.rg = rg;
 		this.cpf = cpf;
@@ -167,18 +179,28 @@ public class DadosPessoal {
 	DadosPessoal(JSONObject json) throws JSONException {
 		if (json.has(DadosPessoalKeys.NOME))
 			nome = json.getString(DadosPessoalKeys.NOME);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.NOME);
 
 		if (json.has(DadosPessoalKeys.DATA_NASCIMENTO))
 			dataNascimento = json.getString(DadosPessoalKeys.DATA_NASCIMENTO);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.DATA_NASCIMENTO);
 
 		if (json.has(DadosPessoalKeys.SEXO))
 			sexo = json.getString(DadosPessoalKeys.SEXO).charAt(0);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.SEXO);
 
 		if (json.has(DadosPessoalKeys.ESTADO_CIVIL))
 			estadoCivil = json.getString(DadosPessoalKeys.ESTADO_CIVIL);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.ESTADO_CIVIL);
 
 		if (json.has(DadosPessoalKeys.RELIGIAO))
 			religiao = json.getString(DadosPessoalKeys.RELIGIAO);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.RELIGIAO);
 
 		if (json.has(DadosPessoalKeys.RG))
 			rg = json.getString(DadosPessoalKeys.RG);
@@ -188,12 +210,21 @@ public class DadosPessoal {
 
 		if (json.has(DadosPessoalKeys.ESCOLARIDADE))
 			escolaridade = json.getString(DadosPessoalKeys.ESCOLARIDADE);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.ESCOLARIDADE);
 
 		if (json.has(DadosPessoalKeys.PONTO_REF))
 			pontoRef = json.getString(DadosPessoalKeys.PONTO_REF);
 
 		if (json.has(DadosPessoalKeys.ENDERECO))
 			endereco = json.getString(DadosPessoalKeys.ENDERECO);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.ENDERECO);
+
+		if (json.has(DadosPessoalKeys.PROFISSAO))
+			profissao = json.getString(DadosPessoalKeys.PROFISSAO);
+		else
+			throw new JSONException("missing " + DadosPessoalKeys.PROFISSAO);
 
 		if (json.has(DadosPessoalKeys.TELEFONES))
 			setTelefones(json.getJSONArray(DadosPessoalKeys.TELEFONES));
@@ -204,7 +235,7 @@ public class DadosPessoal {
 		return "DadosPessoal [pessoalId=" + pessoalId + ", nome=" + nome + ", dataNascimento=" + dataNascimento
 				+ ", sexo=" + sexo + ", estadoCivil=" + estadoCivil + ", religiao=" + religiao + ", rg=" + rg + ", cpf="
 				+ cpf + ", escolaridade=" + escolaridade + ", endereco=" + endereco + ", pontoRef=" + pontoRef
-				+ ", telefones=" + telefones + "]";
+				+ ", profissao=" + profissao + ", telefones=" + telefones + "]";
 	}
 
 }

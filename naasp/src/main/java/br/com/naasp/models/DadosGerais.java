@@ -95,18 +95,28 @@ public class DadosGerais {
 
 		if (json.has(DadosGeraiskeys.NUM_FICHA))
 			setNumFicha(json.getInt(DadosGeraiskeys.NUM_FICHA));
+		else
+			throw new JSONException("missing " + DadosGeraiskeys.NUM_FICHA);
 
 		if (json.has(DadosGeraiskeys.DATA_PRIM_ATENDIMENTO))
 			setDataPrimeiroAtend(json.getString(DadosGeraiskeys.DATA_PRIM_ATENDIMENTO));
+		else
+			throw new JSONException("missing " + DadosGeraiskeys.DATA_PRIM_ATENDIMENTO);
 
 		if (json.has(DadosGeraiskeys.PAROCO))
 			setParoco(json.getString(DadosGeraiskeys.PAROCO));
+		else
+			throw new JSONException("missing " + DadosGeraiskeys.PAROCO);
 
 		if (json.has(DadosGeraiskeys.SACERDOTE))
 			setSacerdode(json.getString(DadosGeraiskeys.SACERDOTE));
+		else
+			throw new JSONException("missing " + DadosGeraiskeys.SACERDOTE);
 
 		if (json.has(DadosGeraiskeys.RESP_ATENDIMENTO))
 			setRespAtendimento(json.getString(DadosGeraiskeys.RESP_ATENDIMENTO));
+		else
+			throw new JSONException("missing " + DadosGeraiskeys.RESP_ATENDIMENTO);
 	}
 
 }

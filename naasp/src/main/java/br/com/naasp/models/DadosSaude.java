@@ -24,6 +24,8 @@ public class DadosSaude {
 	public DadosSaude(JSONObject json) throws JSONException {
 		if (json.has(DadosSaudeKeys.QUEM_QUAIS))
 			quemQuais = json.getString(DadosSaudeKeys.QUEM_QUAIS);
+		else
+			quemQuais = "NÃO POSSUI";
 	}
 
 	public String getQuemQuais() {

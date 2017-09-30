@@ -11,6 +11,8 @@ import org.json.JSONObject;
 @Entity
 public class DadosParoquias {
 
+	private static final String NAO_INFORMADO = "NÃO INFORMADO";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int paroquiaId;
@@ -32,18 +34,28 @@ public class DadosParoquias {
 	public DadosParoquias(JSONObject json) throws JSONException {
 		if (json.has(DadosParoquiaKeys.PAROQUIA_BAIRRO))
 			paroquiaBairro = json.getString(DadosParoquiaKeys.PAROQUIA_BAIRRO);
+		else
+			paroquiaBairro = NAO_INFORMADO;
 
 		if (json.has(DadosParoquiaKeys.DESCRICAO_ATIVIDADE))
 			descricaoAtividade = json.getString(DadosParoquiaKeys.DESCRICAO_ATIVIDADE);
+		else
+			descricaoAtividade = NAO_INFORMADO;
 
 		if (json.has(DadosParoquiaKeys.PASTORAL_INSERIDO))
 			pastoralInserido = json.getString(DadosParoquiaKeys.PASTORAL_INSERIDO);
+		else
+			pastoralInserido = NAO_INFORMADO;
 
 		if (json.has(DadosParoquiaKeys.PASTORAL_ACOMPANHADO))
 			pastoralAcompanhado = json.getString(DadosParoquiaKeys.PASTORAL_ACOMPANHADO);
+		else
+			pastoralAcompanhado = NAO_INFORMADO;
 
 		if (json.has(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST))
 			atividadeOutrasInst = json.getString(DadosParoquiaKeys.ATIVIDADE_OUTRAS_INST);
+		else
+			atividadeOutrasInst = NAO_INFORMADO;
 	}
 
 	public DadosParoquias(String paroquiaBairro, String descricaoAtividade, String pastoralInserido,

@@ -44,15 +44,23 @@ public class Familiar {
 	public Familiar(JSONObject json) throws JSONException {
 		if (json.has(FamiliarKeys.PARENTESCO))
 			parentesco = json.getString(FamiliarKeys.PARENTESCO);
+		else
+			throw new JSONException("missing " + FamiliarKeys.PARENTESCO + " on Familiar");
 
 		if (json.has(FamiliarKeys.PROFISSAO))
-			profissao = json.getString(FamiliarKeys.PROFISSAO);
+			profissao = json.getString(FamiliarKeys.PROFISSAO + " on Familiar");
+		else
+			throw new JSONException("missing " + FamiliarKeys.PROFISSAO + " on Familiar");
 
 		if (json.has(FamiliarKeys.ESCOLARIDADE))
 			escolaridade = json.getString(FamiliarKeys.ESCOLARIDADE);
+		else
+			throw new JSONException("missing " + FamiliarKeys.ESCOLARIDADE + " on Familiar");
 
 		if (json.has(FamiliarKeys.IDADE))
 			idade = json.getInt(FamiliarKeys.IDADE);
+		else
+			throw new JSONException("missing " + FamiliarKeys.IDADE + " on Familiar");
 	}
 
 	@Override
