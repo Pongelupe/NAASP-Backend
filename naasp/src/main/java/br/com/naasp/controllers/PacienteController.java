@@ -1,5 +1,7 @@
 package br.com.naasp.controllers;
 
+import java.util.ArrayList;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.naasp.models.Paciente;
 import br.com.naasp.repository.PacienteRepository;
 import br.com.naasp.service.models.CadastroPacienteResposta;
+import br.com.naasp.service.models.ListarPacienteResposta;
 
 @Controller
 public class PacienteController {
@@ -33,6 +36,13 @@ public class PacienteController {
 			responseObject.setMensagem(e.toString());
 			return responseObject.toJson().toString();
 		}
+	}
+
+	@RequestMapping(value = "listarPacientes", method = org.springframework.web.bind.annotation.RequestMethod.POST)
+	public @ResponseBody String listarPacientes(@RequestBody String json) {
+		ArrayList<Paciente> pacientes = (ArrayList<Paciente>) repository.findAll();
+		ListarPacienteResposta responseObject = new ListarPacienteResposta(true, pacientes);
+		return responseObject.toJson().toString();
 	}
 
 }
