@@ -38,8 +38,8 @@ public class PacienteController {
 		}
 	}
 
-	@RequestMapping(value = "listarPacientes", method = org.springframework.web.bind.annotation.RequestMethod.POST)
-	public @ResponseBody String listarPacientes(@RequestBody String json) {
+	@RequestMapping(value = "listarPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String listarPacientes() {
 		ArrayList<Paciente> pacientes = (ArrayList<Paciente>) repository.findAll();
 		ListarPacienteResposta responseObject = new ListarPacienteResposta(true, pacientes);
 		return responseObject.toJson().toString();
