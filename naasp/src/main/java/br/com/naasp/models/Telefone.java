@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @Entity
 public class Telefone {
 	@Id
@@ -19,6 +22,11 @@ public class Telefone {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_pessoa")
 	private DadosPessoal dadosPessoal;
+
+	private static class TelefoneKeys {
+		private static final String ID_TELEFONE = "id_telefone";
+		private static final String TELEFONE = "telefone";
+	}
 
 	public String getTelefone() {
 		return telefone;
@@ -51,6 +59,19 @@ public class Telefone {
 	@Override
 	public String toString() {
 		return "Telefone [telefoneId=" + telefoneId + ", telefones=" + telefone + "]";
+	}
+
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		try {
+			json.put(TelefoneKeys.ID_TELEFONE, telefoneId);
+			json.put(TelefoneKeys.TELEFONE, telefone);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return json;
 	}
 
 }

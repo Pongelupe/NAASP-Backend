@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
 @Entity
 public class Paciente {
 
@@ -135,6 +137,18 @@ public class Paciente {
 	// TODO
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
+		Gson gson = new Gson();
+		try {
+			json.put(PacienteKeys.DADOS_GERAIS, new JSONObject(gson.toJson(dadosGerais)));
+			json.put(PacienteKeys.DADOS_PESSOAIS, dadosPessoais.toJson());
+			json.put(PacienteKeys.DADOS_FAMILIARES, dadosFamiliar.toJson());
+			json.put(PacienteKeys.DADOS_MORADIA, new JSONObject(gson.toJson(dadosMorada)));
+			json.put(PacienteKeys.DADOS_SAUDE, new JSONObject(gson.toJson(dadosSaude)));
+			json.put(PacienteKeys.DADOS_PAROQUIA, new JSONObject(gson.toJson(dadosParoquia)));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		return json;
 	}
 

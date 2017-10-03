@@ -83,4 +83,15 @@ public class DadosFamiliar {
 				+ "]";
 	}
 
+	public JSONObject toJson() throws JSONException {
+		JSONObject json = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+
+		json.put(DadosFamiliarKeys.AJUDA_GOVERNO, ajudaGoverno);
+		familiares.forEach(f -> jsonArray.put(f.toJson()));
+		json.put(DadosFamiliarKeys.FAMILIARES, jsonArray);
+
+		return json;
+	}
+
 }

@@ -28,6 +28,7 @@ public class Familiar {
 	private DadosFamiliar dadosFamiliar;
 
 	private static class FamiliarKeys {
+		public static final String ID = "idFamila";
 		public static final String PARENTESCO = "parentesco";
 		public static final String PROFISSAO = "profissao";
 		public static final String ESCOLARIDADE = "escolaridade";
@@ -71,6 +72,22 @@ public class Familiar {
 	public String toString() {
 		return "DadosFamiliar [familiaId=" + familiarId + ", parentesco=" + parentesco + ", profissao=" + profissao
 				+ ", escolaridade=" + escolaridade + ", idade=" + idade;
+	}
+
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put(FamiliarKeys.ID, familiarId);
+			json.put(FamiliarKeys.PARENTESCO, parentesco);
+			json.put(FamiliarKeys.PROFISSAO, profissao);
+			json.put(FamiliarKeys.ESCOLARIDADE, escolaridade);
+			json.put(FamiliarKeys.IDADE, idade);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return json;
 	}
 
 }

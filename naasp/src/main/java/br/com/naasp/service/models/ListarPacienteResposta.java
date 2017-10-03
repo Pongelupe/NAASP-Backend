@@ -2,6 +2,7 @@ package br.com.naasp.service.models;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,9 +24,12 @@ public class ListarPacienteResposta extends Resposta {
 	@Override
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
 		try {
+			pacientes.forEach(p -> jsonArray.put(p.toJson()));
+
 			json.put("Resposta", super.toJson());
-			json.put(ListarPacienteRespostaKeys.PACIENTES, pacientes);
+			json.put(ListarPacienteRespostaKeys.PACIENTES, jsonArray);
 		} catch (JSONException e) {
 			json = new Resposta(e.toString()).toJson();
 		}

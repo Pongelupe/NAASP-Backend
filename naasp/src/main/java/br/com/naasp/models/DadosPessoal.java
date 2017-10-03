@@ -33,6 +33,7 @@ public class DadosPessoal {
 	private String endereco;
 	private String pontoRef;
 	private String profissao;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa")
 	private List<Telefone> telefones = new ArrayList<Telefone>();
@@ -50,6 +51,7 @@ public class DadosPessoal {
 		public static final String ENDERECO = "endereco";
 		public static final String PROFISSAO = "profissao";
 		public static final String TELEFONES = "telefones";
+		public static final String ID = "idPessoa";
 	}
 
 	public String getNome() {
@@ -236,6 +238,29 @@ public class DadosPessoal {
 				+ ", sexo=" + sexo + ", estadoCivil=" + estadoCivil + ", religiao=" + religiao + ", rg=" + rg + ", cpf="
 				+ cpf + ", escolaridade=" + escolaridade + ", endereco=" + endereco + ", pontoRef=" + pontoRef
 				+ ", profissao=" + profissao + ", telefones=" + telefones + "]";
+	}
+
+	public JSONObject toJson() throws JSONException {
+		JSONObject json = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+
+		json.put(DadosPessoalKeys.ID, pessoalId);
+		json.put(DadosPessoalKeys.NOME, nome);
+		json.put(DadosPessoalKeys.DATA_NASCIMENTO, dataNascimento);
+		json.put(DadosPessoalKeys.SEXO, sexo);
+		json.put(DadosPessoalKeys.ESTADO_CIVIL, estadoCivil);
+		json.put(DadosPessoalKeys.RELIGIAO, religiao);
+		json.put(DadosPessoalKeys.RG, rg);
+		json.put(DadosPessoalKeys.CPF, cpf);
+		json.put(DadosPessoalKeys.ESCOLARIDADE, escolaridade);
+		json.put(DadosPessoalKeys.ENDERECO, endereco);
+		json.put(DadosPessoalKeys.PONTO_REF, pontoRef);
+		json.put(DadosPessoalKeys.PROFISSAO, profissao);
+
+		telefones.forEach(t -> jsonArray.put(t.toJson()));
+		json.put(DadosPessoalKeys.TELEFONES, jsonArray);
+
+		return json;
 	}
 
 }
