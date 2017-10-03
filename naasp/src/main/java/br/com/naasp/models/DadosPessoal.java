@@ -224,7 +224,7 @@ public class DadosPessoal {
 		if (json.has(DadosPessoalKeys.PROFISSAO))
 			profissao = json.getString(DadosPessoalKeys.PROFISSAO);
 		else
-			throw new JSONException("missing " + DadosPessoalKeys.PROFISSAO);
+			profissao = "NÃO POSSUI";
 
 		if (json.has(DadosPessoalKeys.TELEFONES))
 			setTelefones(json.getJSONArray(DadosPessoalKeys.TELEFONES));

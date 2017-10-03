@@ -73,6 +73,10 @@ public class DadosFamiliar {
 		return familiares;
 	}
 
+	@Deprecated
+	public DadosFamiliar() {
+	}
+
 	@Override
 	public String toString() {
 		return "DadosFamiliar [familiaId=" + familiaId + ", familiares=" + familiares + ", ajudaGoverno=" + ajudaGoverno

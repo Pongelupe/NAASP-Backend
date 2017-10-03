@@ -41,6 +41,10 @@ public class Familiar {
 		this.idade = idade;
 	}
 
+	@Deprecated
+	public Familiar() {
+	}
+
 	public Familiar(JSONObject json) throws JSONException {
 		if (json.has(FamiliarKeys.PARENTESCO))
 			parentesco = json.getString(FamiliarKeys.PARENTESCO);
@@ -48,7 +52,7 @@ public class Familiar {
 			throw new JSONException("missing " + FamiliarKeys.PARENTESCO + " on Familiar");
 
 		if (json.has(FamiliarKeys.PROFISSAO))
-			profissao = json.getString(FamiliarKeys.PROFISSAO + " on Familiar");
+			profissao = json.getString(FamiliarKeys.PROFISSAO);
 		else
 			throw new JSONException("missing " + FamiliarKeys.PROFISSAO + " on Familiar");
 

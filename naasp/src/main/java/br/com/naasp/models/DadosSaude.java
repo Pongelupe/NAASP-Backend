@@ -36,6 +36,10 @@ public class DadosSaude {
 		this.quemQuais = quemQuais;
 	}
 
+	@Deprecated
+	public DadosSaude() {
+	}
+
 	@Override
 	public String toString() {
 		return "DadosSaude [dadosSaudeId=" + dadosSaudeId + ", quemQuais=" + quemQuais + "]";

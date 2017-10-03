@@ -119,8 +119,6 @@ public class Paciente {
 		if (json.has(PacienteKeys.DADOS_PESSOAIS))
 			setDadosPessoais(json.getJSONObject(PacienteKeys.DADOS_PESSOAIS));
 
-		// if (json.has(PacienteKeys.DADOS_FAMILIARES))
-		// setDadosFamiliares(json.getJSONArray(PacienteKeys.DADOS_FAMILIARES));
 		if (json.has(PacienteKeys.DADOS_FAMILIARES))
 			setDadosFamilar(json.getJSONObject(PacienteKeys.DADOS_FAMILIARES));
 

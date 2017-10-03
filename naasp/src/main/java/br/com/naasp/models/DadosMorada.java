@@ -54,6 +54,10 @@ public class DadosMorada {
 		this.tipo = tipo;
 	}
 
+	@Deprecated
+	public DadosMorada() {
+	}
+
 	@Override
 	public String toString() {
 		return "DadosMorada [moradaId=" + moradaId + ", tipo=" + tipo + ", descricaoMorada=" + descricaoMorada + "]";

@@ -91,6 +91,10 @@ public class DadosGerais {
 		this.respAtendimento = respAtendimento;
 	}
 
+	@Deprecated
+	public DadosGerais() {
+	}
+
 	public DadosGerais(JSONObject json) throws JSONException {
 
 		if (json.has(DadosGeraiskeys.NUM_FICHA))

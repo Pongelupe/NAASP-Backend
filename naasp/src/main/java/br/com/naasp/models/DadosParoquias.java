@@ -67,6 +67,10 @@ public class DadosParoquias {
 		this.atividadeOutrasInst = atividadeOutrasInst;
 	}
 
+	@Deprecated
+	public DadosParoquias() {
+	}
+
 	public String getParoquiaBairro() {
 		return paroquiaBairro;
 	}
