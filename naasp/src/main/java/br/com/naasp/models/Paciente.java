@@ -134,7 +134,6 @@ public class Paciente {
 			setDadosParoquia(json.getJSONObject(PacienteKeys.DADOS_PAROQUIA));
 	}
 
-	// TODO
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();

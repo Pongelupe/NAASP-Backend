@@ -15,7 +15,6 @@ public class DadosGerais {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int idDadosGerais;
 
-	private int numFicha;
 	private String dataPrimeiroAtend;
 	private String paroco;
 	private String sacerdode;
@@ -23,19 +22,10 @@ public class DadosGerais {
 
 	private static class DadosGeraiskeys {
 
-		private static final String NUM_FICHA = "numeroFicha";
 		private static final String DATA_PRIM_ATENDIMENTO = "dataPrimeiroAtend";
 		private static final String PAROCO = "paroco";
 		private static final String SACERDOTE = "sacerdote";
 		private static final String RESP_ATENDIMENTO = "respAtendimento";
-	}
-
-	public int getNumFicha() {
-		return numFicha;
-	}
-
-	public void setNumFicha(int numFicha) {
-		this.numFicha = numFicha;
 	}
 
 	public Integer getIdDadosGerais() {
@@ -96,11 +86,6 @@ public class DadosGerais {
 	}
 
 	public DadosGerais(JSONObject json) throws JSONException {
-
-		if (json.has(DadosGeraiskeys.NUM_FICHA))
-			setNumFicha(json.getInt(DadosGeraiskeys.NUM_FICHA));
-		else
-			throw new JSONException("missing " + DadosGeraiskeys.NUM_FICHA);
 
 		if (json.has(DadosGeraiskeys.DATA_PRIM_ATENDIMENTO))
 			setDataPrimeiroAtend(json.getString(DadosGeraiskeys.DATA_PRIM_ATENDIMENTO));
