@@ -23,12 +23,11 @@ public class ListarPacienteResposta extends Resposta {
 
 	@Override
 	public JSONObject toJson() {
-		JSONObject json = new JSONObject();
+		JSONObject json = super.toJson();
 		JSONArray jsonArray = new JSONArray();
 		try {
 			pacientes.forEach(p -> jsonArray.put(p.toJson()));
 
-			json.put("Resposta", super.toJson());
 			json.put(ListarPacienteRespostaKeys.PACIENTES, jsonArray);
 		} catch (JSONException e) {
 			json = new Resposta(e.toString()).toJson();

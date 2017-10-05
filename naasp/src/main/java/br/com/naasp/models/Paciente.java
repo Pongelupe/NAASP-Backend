@@ -17,7 +17,9 @@ public class Paciente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int idPaciente;
+	private int idPaciente;
+
+	private int status;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private DadosGerais dadosGerais;
@@ -39,6 +41,7 @@ public class Paciente {
 
 	private static class PacienteKeys {
 
+		private static final String STATUS = "status";
 		private static final String DADOS_GERAIS = "dadosGerais";
 		private static final String DADOS_PESSOAIS = "dadosPessoais";
 		private static final String DADOS_FAMILIARES = "dadosFamiliares";
@@ -49,6 +52,14 @@ public class Paciente {
 
 	public int getId() {
 		return idPaciente;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public DadosPessoal getDadosPessoais() {
@@ -93,14 +104,15 @@ public class Paciente {
 
 	@Override
 	public String toString() {
-		return "Paciente [idPaciente=" + idPaciente + ", dadosGerais=" + dadosGerais + ", dadosPessoais="
-				+ dadosPessoais + ", dadosFamiliar=" + dadosFamiliar + ", dadosMorada=" + dadosMorada + ", dadosSaude="
-				+ dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
+		return "Paciente [idPaciente=" + idPaciente + ", status=" + status + ", dadosGerais=" + dadosGerais
+				+ ", dadosPessoais=" + dadosPessoais + ", dadosFamiliar=" + dadosFamiliar + ", dadosMorada="
+				+ dadosMorada + ", dadosSaude=" + dadosSaude + ", dadosParoquia=" + dadosParoquia + "]";
 	}
 
 	public Paciente(DadosGerais dadosGerais, DadosPessoal dadosPessoais, DadosFamiliar dadosFamiliar,
 			DadosMorada dadosMorada, DadosSaude dadosSaude, DadosParoquias dadosParoquia) {
 		super();
+		this.status = 0;
 		this.dadosGerais = dadosGerais;
 		this.dadosPessoais = dadosPessoais;
 		this.dadosFamiliar = dadosFamiliar;
@@ -132,12 +144,15 @@ public class Paciente {
 
 		if (json.has(PacienteKeys.DADOS_PAROQUIA))
 			setDadosParoquia(json.getJSONObject(PacienteKeys.DADOS_PAROQUIA));
+
+		this.status = 0;
 	}
 
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		Gson gson = new Gson();
 		try {
+			json.put(PacienteKeys.STATUS, status);
 			json.put(PacienteKeys.DADOS_GERAIS, new JSONObject(gson.toJson(dadosGerais)));
 			json.put(PacienteKeys.DADOS_PESSOAIS, dadosPessoais.toJson());
 			json.put(PacienteKeys.DADOS_FAMILIARES, dadosFamiliar.toJson());

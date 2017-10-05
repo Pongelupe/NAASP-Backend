@@ -25,9 +25,8 @@ public class CadastroPacienteResposta extends Resposta {
 
 	@Override
 	public JSONObject toJson() {
-		JSONObject json = new JSONObject();
+		JSONObject json = super.toJson();
 		try {
-			json.put("Resposta", super.toJson());
 			json.put(CadastroPacienteRespostaKeys.ID_PACIENTE, idPaciente);
 		} catch (JSONException e) {
 			json = new Resposta(e.toString()).toJson();
