@@ -2,6 +2,8 @@ package br.com.naasp.controllers;
 
 import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class PacienteController {
 
 	@Autowired
 	private PacienteRepository repository;
+	@Autowired
+	private EntityManager manager;
 
 	@RequestMapping(value = "Cadastro/paciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String cadastrarPaciente(@RequestBody String json) {
@@ -40,6 +44,7 @@ public class PacienteController {
 
 	@RequestMapping(value = "listarPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarPacientes() {
+		manager.clear();
 		ArrayList<Paciente> pacientes = (ArrayList<Paciente>) repository.findAll();
 		ListarPacienteResposta responseObject = new ListarPacienteResposta(true, pacientes);
 		return responseObject.toJson().toString();
