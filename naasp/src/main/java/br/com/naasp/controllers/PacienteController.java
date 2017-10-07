@@ -31,12 +31,12 @@ public class PacienteController {
 			p = new Paciente(new JSONObject(json));
 			repository.save(p);
 
-			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(true);
+			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(false);
 			responseObject.setIdPaciente(Integer.toString(p.getId()));
 			String response = responseObject.toJson().toString();
 			return response;
 		} catch (Exception e) {
-			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(false);
+			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(true);
 			responseObject.setMensagem(e.toString());
 			return responseObject.toJson().toString();
 		}

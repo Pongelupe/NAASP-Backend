@@ -40,7 +40,8 @@ public class DadosFamiliar {
 		if (jsonObject.has(DadosFamiliarKeys.FAMILIARES))
 			setFamiliares(jsonObject.getJSONArray(DadosFamiliarKeys.FAMILIARES));
 
-		if (jsonObject.has(DadosFamiliarKeys.FAMILIARES))
+		if (jsonObject.has(DadosFamiliarKeys.FAMILIARES)
+				&& !jsonObject.getString(DadosFamiliarKeys.FAMILIARES).isEmpty())
 			ajudaGoverno = jsonObject.getString(DadosFamiliarKeys.AJUDA_GOVERNO);
 		else
 			ajudaGoverno = NAO_INFORMADO;
