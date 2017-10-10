@@ -1,5 +1,6 @@
 package br.com.naasp.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -108,6 +109,14 @@ public class Paciente {
 
 	private void setDadosParoquia(JSONObject jsonObject) throws JSONException {
 		this.dadosParoquia = new DadosParoquias(jsonObject);
+	}
+
+	public void addAnamnese(Anamnese anamnese) {
+		if (this.anamneses == null)
+			this.anamneses = new ArrayList<Anamnese>();
+
+		this.anamneses.add(anamnese);
+
 	}
 
 	@Override
