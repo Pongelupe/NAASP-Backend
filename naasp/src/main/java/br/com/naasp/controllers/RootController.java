@@ -1,0 +1,16 @@
+package br.com.naasp.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class RootController {
+
+	@RequestMapping(value = "/", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	@ResponseBody
+	public String naasp() {
+		return "<h1>Bem vindo ao Sistema do NAASP!</h1>";
+	}
+
+}

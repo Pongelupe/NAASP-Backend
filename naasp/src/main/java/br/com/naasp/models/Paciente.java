@@ -1,10 +1,14 @@
 package br.com.naasp.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.json.JSONException;
@@ -38,6 +42,10 @@ public class Paciente {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private DadosParoquias dadosParoquia;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_paciente")
+	private List<Anamnese> anamneses;
 
 	private static class PacienteKeys {
 
