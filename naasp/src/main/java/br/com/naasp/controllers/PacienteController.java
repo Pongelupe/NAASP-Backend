@@ -29,13 +29,13 @@ public class PacienteController {
 
 	@RequestMapping(value = "Cadastro/paciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String cadastrarPaciente(@RequestBody String json) {
-		Paciente p;
+		Paciente paciente;
 		try {
-			p = new Paciente(new JSONObject(json));
-			repository.save(p);
+			paciente = new Paciente(new JSONObject(json));
+			repository.save(paciente);
 
 			CadastroPacienteResposta responseObject = new CadastroPacienteResposta(false);
-			responseObject.setIdPaciente(Integer.toString(p.getId()));
+			responseObject.setIdPaciente(Integer.toString(paciente.getId()));
 			String response = responseObject.toJson().toString();
 			return response;
 		} catch (Exception e) {
@@ -58,9 +58,9 @@ public class PacienteController {
 
 		try {
 			CadastroAnamneseChamada request = new CadastroAnamneseChamada(new JSONObject(json));
-			Paciente p = repository.findOne(request.getIdPaciente());
-			p.addAnamnese(request.getAnamnse());
-			repository.save(p);
+			Paciente paciente = repository.findOne(request.getIdPaciente());
+			paciente.addAnamnese(request.getAnamnse());
+			repository.save(paciente);
 
 			Resposta response = new Resposta(true);
 			return response.toJson().toString();
