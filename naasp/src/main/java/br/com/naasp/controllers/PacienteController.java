@@ -62,10 +62,10 @@ public class PacienteController {
 			paciente.addAnamnese(request.getAnamnse());
 			repository.save(paciente);
 
-			Resposta response = new Resposta(true);
+			Resposta response = new Resposta(false);
 			return response.toJson().toString();
 		} catch (JSONException e) {
-			Resposta response = new Resposta(false);
+			Resposta response = new Resposta(true);
 			response.setMensagem(e.toString());
 			return response.toJson().toString();
 		}
