@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -31,8 +32,7 @@ public class Relatorio {
 
 		private static final String PARAMETROS = "parametros";
 		private static final String JASPER_FILE_NAME = "Simple_Blue.jasper";
-		// private static final String JASPER_FILE_PATH = System.getProperty("user.dir")
-		// + "/src/main/resources/";
+		private static final String JRXML_FILE_NAME = "Simple_Blue.jrxml";
 		private static final String JASPER_FILE_PATH = "src/main/resources/";
 	}
 
@@ -46,6 +46,9 @@ public class Relatorio {
 	}
 
 	public File toFile(DataSource dataSource) throws JRException, SQLException {
+
+		compileJrxml();
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		JasperPrint jasperPrinted = JasperFillManager.fillReport(
 				RelatorioKeys.JASPER_FILE_PATH + RelatorioKeys.JASPER_FILE_NAME, params, dataSource.getConnection());
@@ -58,6 +61,10 @@ public class Relatorio {
 		exporter.exportReport();
 
 		return pdf;
+	}
+
+	private void compileJrxml() throws JRException {
+		JasperCompileManager.compileReportToFile(RelatorioKeys.JASPER_FILE_PATH + RelatorioKeys.JRXML_FILE_NAME);
 	}
 
 	public Relatorio(JSONObject json) throws JSONException {
