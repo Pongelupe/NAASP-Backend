@@ -1,6 +1,10 @@
 package br.com.naasp.models;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +15,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +50,8 @@ public class Relatorio {
 		return nome;
 	}
 
-	public File toFile(DataSource dataSource) throws JRException, SQLException {
+	public ByteArrayInputStream toByteArrayInputStream(DataSource dataSource)
+			throws JRException, SQLException, IOException {
 
 		compileJrxml();
 
@@ -53,14 +59,20 @@ public class Relatorio {
 		JasperPrint jasperPrinted = JasperFillManager.fillReport(
 				RelatorioKeys.JASPER_FILE_PATH + RelatorioKeys.JASPER_FILE_NAME, params, dataSource.getConnection());
 		JRPdfExporter exporter = new JRPdfExporter();
+		ByteArrayOutputStream byteArrayOuputStream = new ByteArrayOutputStream();
+
+		File pdf = new File(RelatorioKeys.JASPER_FILE_PATH + nome);
 
 		exporter.setExporterInput(new SimpleExporterInput(jasperPrinted));
-		File pdf = new File(RelatorioKeys.JASPER_FILE_PATH + nome);
 		exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdf));
 
 		exporter.exportReport();
 
-		return pdf;
+		byte[] byteArray = IOUtils.toByteArray(new FileInputStream(pdf));
+		byteArrayOuputStream.write(byteArray);
+
+		return new ByteArrayInputStream(byteArrayOuputStream.toByteArray());
+
 	}
 
 	private void compileJrxml() throws JRException {
