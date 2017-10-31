@@ -36,9 +36,9 @@ public class Relatorio {
 	private static class RelatorioKeys {
 
 		private static final String PARAMETROS = "parametros";
-		private static final String JASPER_FILE_NAME = "Simple_Blue.jasper";
-		private static final String JRXML_FILE_NAME = "Simple_Blue.jrxml";
-		private static final String JASPER_FILE_PATH = "src/main/resources/";
+		private static final String JASPER_FILE_NAME = "NAASP.jasper";
+		private static final String JRXML_FILE_NAME = "NAASP.jrxml";
+		private static final String JASPER_FILE_PATH = "src/main/resources/static/";
 	}
 
 	private void setParametros(JSONArray jsonArray) throws JSONException {
@@ -80,7 +80,7 @@ public class Relatorio {
 	}
 
 	public Relatorio(JSONObject json) throws JSONException {
-		cleanDir();
+		 cleanDir();
 
 		if (json.has(RelatorioKeys.PARAMETROS))
 			setParametros(json.getJSONArray(RelatorioKeys.PARAMETROS));
