@@ -80,7 +80,7 @@ public class Relatorio {
 	}
 
 	public Relatorio(JSONObject json) throws JSONException {
-		 cleanDir();
+		cleanDir();
 
 		if (json.has(RelatorioKeys.PARAMETROS))
 			setParametros(json.getJSONArray(RelatorioKeys.PARAMETROS));
