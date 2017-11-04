@@ -6,11 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -80,18 +77,11 @@ public class Relatorio {
 	}
 
 	public Relatorio(JSONObject json) throws JSONException {
-		cleanDir();
 
 		if (json.has(RelatorioKeys.PARAMETROS))
 			setParametros(json.getJSONArray(RelatorioKeys.PARAMETROS));
 
-		this.nome = LocalDate.now() + ".pdf";
-	}
-
-	private void cleanDir() {
-		File folder = new File(RelatorioKeys.JASPER_FILE_PATH);
-		List<File> files = Arrays.asList(folder.listFiles());
-		files.stream().filter(f -> f.getName().endsWith(".pdf")).forEach(f -> f.delete());
+		this.nome = "relatorio.pdf";
 	}
 
 }
