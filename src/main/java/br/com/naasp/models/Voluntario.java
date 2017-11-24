@@ -18,12 +18,14 @@ public class Voluntario {
 	private int idade;
 	private String telefone;
 	private String email;
+	private String especialiade;
 
 	private static class VoluntarioKeys {
 		public static final String ID = "idVoluntario";
 		public static final String TELEFONE = "telefone";
 		public static final String EMAIL = "email";
 		public static final String IDADE = "idade";
+		public static final String ESPECIALIADE = "especialiade";
 	}
 
 	public Voluntario(JSONObject json) throws JSONException {
@@ -35,6 +37,10 @@ public class Voluntario {
 
 		if (json.has(VoluntarioKeys.IDADE))
 			setIdade(json.getInt(VoluntarioKeys.IDADE));
+	}
+
+	@Deprecated
+	public Voluntario() {
 	}
 
 	public int getIdade() {
@@ -61,6 +67,14 @@ public class Voluntario {
 		this.email = email;
 	}
 
+	public String getEspecialiade() {
+		return especialiade;
+	}
+
+	public void setEspecialiade(String especialiade) {
+		this.especialiade = especialiade;
+	}
+
 	public int getIdVoluntario() {
 		return idVoluntario;
 	}
@@ -72,6 +86,7 @@ public class Voluntario {
 			json.put(VoluntarioKeys.EMAIL, email);
 			json.put(VoluntarioKeys.TELEFONE, telefone);
 			json.put(VoluntarioKeys.IDADE, idade);
+			json.put(VoluntarioKeys.ESPECIALIADE, especialiade);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
